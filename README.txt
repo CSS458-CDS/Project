@@ -1,1 +1,10 @@
-This is the repo for Dan Heizer, Caleb Hawkins, and Siqi Zhang.
+global.py
+This file contains data that will be accessible by all the other classes.
+It contains course catalogs, which are lists of course objects. 
+Each quarter has it's own catalog.
+
+course.py
+The course class represents a course that will be scheduled. 
+
+driver.py
+A test driver than Dan has been using 
