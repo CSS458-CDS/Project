@@ -1,15 +1,16 @@
-"""
-class Course
-    Members
-        term: 0, 1, 2, 3 (Summer, Autum, Winter, Spr)
-        requirement: Probably need types for these
-        taughtBy: Faculty object
-        num: Course number (IE, operating systems is 430)
-        timeSlot: Int to indicate what time of day class is taught
-        Section: Indicates a different instance of the same class
-        Difficulty: from 0 to 1, indicates how difficult a class is (impacts grade distribution)
-"""
+
 class Course:
+    """
+    class Course
+        Members
+            term: 0, 1, 2, 3 (Summer, Autum, Winter, Spr)
+            requirement: Probably need types for these
+            taughtBy: Faculty object
+            num: Course number (IE, operating systems is 430)
+            timeSlot: Int to indicate what time of day class is taught
+            Section: Indicates a different instance of the same class
+            Difficulty: from 0 to 1, indicates how difficult a class is (impacts grade distribution)
+    """
     def __init__(self, quarter=-1, courseNum=None, time=None, day=None, cap=None):
         self.requirement = None
         self.taughtBy = None
