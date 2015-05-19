@@ -10,17 +10,20 @@ class Course
         Difficulty: from 0 to 1, indicates how difficult a class is (impacts grade distribution)
 """
 class Course:
-    def __init__(self, quarter=-1, tokens=None):
+    def __init__(self, quarter=-1, courseNum=None, time=None, day=None, cap=None):
         self.requirement = None
         self.taughtBy = None
         self.section = -1
         self.difficulty = -1
         self.quarter = quarter
-        if tokens is not None:
-            self.num = tokens[0]
-            self.time = tokens[1]
-            self.meetingDays = tokens[2]
-            self.capacity = tokens[3]
+        if courseNum is not None:
+            self.num = courseNum
+        if time is not None:
+            self.time = time
+        if day is not None:
+            self.meetingDays = day
+        if cap is not None:
+            self.capacity = cap
         else:
             self.num = -1
             self.meetingDays = -1
