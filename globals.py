@@ -1,3 +1,4 @@
+import courseDriver
 #Name of the file used for building course catalogs
 COURSE_FILE = "list_of_classes.xlsx"
 #First line that contains course data in course file
@@ -13,3 +14,6 @@ WINCAT = []
 SPRCAT = []
 #Course catalog. List of all the courses offered in Summer.
 SUMCAT = []
+
+def initialize_globals():
+    courseDriver.buildClasses(COURSE_FILE)

@@ -1,9 +1,18 @@
+"""
+This file provides the method to build course catalogs.
+"""
 import course as c
 import globals as g
 from openpyxl.reader.excel import load_workbook
 
 """---------------------------------------
 Creates course objects from a text file fileName
+
+Pre:
+    Using a file formatted exactly like list_of_classes.xlsx
+    Global variables WINCAT, AUTCAT, SPRCAT, SUMCAT are all empty lists
+Post:
+    WINCAT, AUTCAT, SPRCAT, SUMCAT contain course objects will all relevant data from the file
 
 File format:
     Course numbers are in column:
@@ -58,27 +67,3 @@ def buildClasses(fileName=g.COURSE_FILE):
             if result.num != -1:
                 g.SPRCAT.append(result)
 
-
-buildClasses()
-print("SUMMER CATALOG: ")
-print("----------------------------------------")
-
-for i in range(len(g.SUMCAT)):
-    g.SUMCAT[i].display()
-print()
-print("AUT CATALOG: ")
-print("----------------------------------------")
-for i in range(len(g.AUTCAT)):
-    g.AUTCAT[i].display()
-print()
-print("WIN CATALOG")
-print("----------------------------------------")
-
-for i in range(len(g.WINCAT)):
-    g.WINCAT[i].display()
-print()
-print("SPR CATALOG")
-print("----------------------------------------")
-for i in range(len(g.SPRCAT)):
-    g.SPRCAT[i].display()
-print()
