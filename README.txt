@@ -7,4 +7,4 @@ course.py
 The course class represents a course that will be scheduled. 
 
 driver.py
-A test driver than Dan has been using 
+A test driver that Dan has been using 
