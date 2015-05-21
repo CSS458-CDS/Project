@@ -35,6 +35,7 @@ def buildClasses(fileName=g.COURSE_FILE):
             result = make_one_course(ws, 'A', row)
             if result is not None:
                 if result.num != -1:
+                    result.getCourseData()
                     result.getTitle()
                     g.SUMCAT.append(result)
 
@@ -44,6 +45,7 @@ def buildClasses(fileName=g.COURSE_FILE):
                 result = make_one_course(ws, 'F', row)
             if result is not None:
                 if result.num != -1:
+                    result.getCourseData()
                     result.getTitle()
                     g.AUTCAT.append(result)
     #Build all Winter courses (starting in column K)
@@ -52,6 +54,7 @@ def buildClasses(fileName=g.COURSE_FILE):
             result = make_one_course(ws, "K", row)
             if result is not None:
                 if result.num != -1:
+                    result.getCourseData()
                     result.getTitle()
                     g.WINCAT.append(result)
     #Build all Spring courses (starting in column P)
@@ -60,6 +63,7 @@ def buildClasses(fileName=g.COURSE_FILE):
             result = make_one_course(ws, 'P', row)
             if result is not None:
                 if result.num != -1:
+                    result.getCourseData()
                     result.getTitle()
                     g.SPRCAT.append(result)
 
@@ -129,16 +133,18 @@ def make_one_course(ws, startColumn, startRow):
         print("Error reading course: ", end="", sep="")
         result.display()
 
+def print_catalog(cat):
+    for i in range(len(cat)):
+        cat[i].display()
+"""
+Pre: AUTCAT, SPRCAT, SUMCAT, WINCAT are all populated
+Post: A list containing all the electives from the parameter catalog is returned
+"""
+def get_electives_from(catalog):
+    retval = []
+    for i in range(len(catalog)):
+        if catalog[i].elective:
+            retval.append(catalog[i])
+    return retval
 
 
-buildClasses()
-courseNums = []
-for i in range(len(g.AUTCAT)):
-    courseNums.append(g.AUTCAT[i].num)
-for i in range(len(g.WINCAT)):
-    courseNums.append(g.WINCAT[i].num)
-for i in range(len(g.SPRCAT)):
-    courseNums.append(g.SPRCAT[i].num)
-for i in range(len(g.SUMCAT)):
-    courseNums.append(g.SUMCAT[i].num)
-courseNums = set(courseNums)
