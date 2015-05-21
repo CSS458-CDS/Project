@@ -148,3 +148,5 @@ def get_electives_from(catalog):
     return retval
 
 
+
+g.initialize_globals()
