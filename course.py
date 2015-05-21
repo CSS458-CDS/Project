@@ -1,3 +1,4 @@
+
 import globals as g
 """
 class Course
@@ -255,4 +256,5 @@ Faculty expertise:
     Computer Engineering
     Graphics
 """
+
 
