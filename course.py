@@ -1,3 +1,4 @@
+import globals as g
 """
 class Course
     Members
@@ -56,10 +57,19 @@ class Course:
             self.time = -1
 
 
+    def display(self, title=False):
+        if self.section != -1 and title:
+            print(self.dept, self.num, self.title, self.section, "\t", self.meetingDays, "\t", self.capacity, "\t", self.time)
+        if self.section != -1 and not title:
+            print(self.dept, self.num, self.section, "\t", self.meetingDays, "\t", self.capacity, "\t", self.time)
 
-    def display(self):
-        print(self.dept, self.num, self.section, "\t", self.meetingDays, "\t", self.capacity, "\t", self.time)
-        return
+        else:
+            if title:
+                print(self.dept, self.num, self.title, "\t", self.meetingDays, "\t", self.capacity, "\t", self.time)
+            else:
+                print(self.dept, self.num, "\t", self.meetingDays, "\t", self.capacity, "\t", self.time)
+
+
     """
     Use the course num to navigate a series of if statements to find the string title of the course.
     Pre: Course has no title
@@ -68,6 +78,12 @@ class Course:
     515: Doesnt seem to be offered
     205/405: Women in stem
     """
+    def getCourseData(self):
+        self.num = int(self.num)
+        if self.num in g.CORE_CLASSES:
+            self.core = True
+        else:
+            self.elective = True
     def getTitle(self):
         self.num = int(self.num)
         if self.dept == "CSS":
