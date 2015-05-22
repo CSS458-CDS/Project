@@ -17,6 +17,7 @@ class Student(object):
             credit: an int representing the total credit a student has earned
             finishedCourses: a list that contains all the course number
             GPA: a double that represent the cumulative GPA
+            currentCourses: a list of course class that the student is taking this quarter
     """
     def __init__(self, courses, senior = False, master = False):
         """
@@ -33,6 +34,7 @@ class Student(object):
         self.isSenior = senior
         self.credit = 0
         self.finishedCourses = []
+        self.currentCourses = []
         self.isMaster = master
         self.GPA = N.random.normal(MEAN_GPA,STD)
         if(self.GPA > 4.0):
@@ -126,3 +128,25 @@ class Student(object):
             return True
         else:
             return False
+    def register(self, course):
+        """
+        Description: add a course object to currentCourses,
+        Pre : student properties are appropriately set
+        Post : A course object have been added
+        Parameters:
+            course: course object
+        Returns: None
+        """
+        # this student is able to register for a certain course if
+        # 1.they have taken the prerequisite course
+        # 2.course is not full
+        # 3. TBD
+        if (course.requirement in self.finishedCourses and
+            course.spots != 0):
+            # student tries to register capstone
+            if(self.ready_for_capstone() and course.num == 497):
+                course.spots -= 1
+                self.currentCourses.append(course);
+            elif(course.num != 497):
+                course.spots -=1
+                self.currentCourses.append(course);

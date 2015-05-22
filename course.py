@@ -30,6 +30,7 @@ class Course:
             timeSlot: Int to indicate what time of day class is taught
             Section: Indicates a different instance of the same class
             Difficulty: from 0 to 1, indicates how difficult a class is (impacts grade distribution)
+            spots: 0 to capacity, the spots left in this course
     """
     def __init__(self, quarter=-1, courseNum=None, time=None, day=None, cap=None):
         self.requirement = None
@@ -51,6 +52,7 @@ class Course:
             self.meetingDays = day
         if cap is not None:
             self.capacity = cap
+            self.spots = cap
         else:
             self.num = -1
             self.meetingDays = -1
