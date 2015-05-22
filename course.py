@@ -57,6 +57,7 @@ class Course:
             self.num = -1
             self.meetingDays = -1
             self.capacity = -1
+            self.spots = cap
             self.time = -1
 
 
