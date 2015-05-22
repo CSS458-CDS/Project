@@ -7,7 +7,8 @@ COURSE_FILE_FIRST = 9
 COURSE_FILE_LAST = 100
 # of all the graduated student, the percentage of students becoming master student
 MASTER_STUDENT_PERCENT = 0.1
-
+#This list contains the classes that are considered core to the major.
+#Any classes that are not in this list are considered electives.
 CORE_CLASSES = {161, 162, 301, 342, 343, 350, 360, 370, 422, 430}
 #Course catalog. List of all the courses offered in Autum.
 AUTCAT = []
@@ -19,7 +20,11 @@ SPRCAT = []
 SUMCAT = []
 #elective Course catalog. List of all the elective courses offered in a year, courses are represented as int
 ALL_ELECTIVES = []
-
+#Dictionary to get the field from a number
+FIELDS = {0:"Programming", 1:"Scientific Computing", 2:"Software Engineering",
+        3:"Operating Systems", 4:"Hardware", 5:"Cyber Security", 6:"Writing",
+        7:"Databases", 8:"Networking", 9:"Teaching", 10:"Computer Engineering",
+        11:"Graphics", 12:"Any"}
 def initialize_globals():
     import courseDriver as cd
     cd.buildClasses()
