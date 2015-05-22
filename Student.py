@@ -19,6 +19,7 @@ class Student(object):
             GPA: a double that represent the cumulative GPA
             currentCourses: a list of course class that the student is taking this quarter
     """
+    # ==================================================================================================================
     def __init__(self, courses, senior = False, master = False):
         """
         Description: constructor
@@ -81,6 +82,7 @@ class Student(object):
         else:
             # junior student has a range of credit from 90 to 110
             self.credit = MIN_JUNIOR_CREDIT + N.random.randint(0, 5) * 5
+    # ==================================================================================================================
     def ready_to_graduate(self):
         """
         Description: tell whether a student is good to graduate
@@ -94,6 +96,7 @@ class Student(object):
             return True
         else:
             return False
+    # ==================================================================================================================
     def ready_for_capstone(self):
         """
         Description: tell whether a student is able to register capstone
@@ -114,6 +117,7 @@ class Student(object):
             return True
         else:
             return False
+    # ==================================================================================================================
     def have_taken(self, course):
         """
         Description: tell whether a student has taken a certain course
@@ -128,6 +132,7 @@ class Student(object):
             return True
         else:
             return False
+    # ==================================================================================================================
     def register(self, course):
         """
         Description: add a course object to currentCourses,
