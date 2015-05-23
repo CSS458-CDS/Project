@@ -33,7 +33,7 @@ class faculty:
                                            # ASSUMPTION: if a date is provided, it will be a "complete" date.
         
         self.fullTime = fullTimeStatus 
-        self.numClasses = numClassesTaught
+        self.numClasses = numClassesTaught + 0.
         self.currentCourses = [] # List of currently taught courses
         self.studentsAdvised = numStudentsAdvised
         self.expertise = expertiseList
@@ -55,13 +55,13 @@ class faculty:
             print self.lastName
         
         if self.age != None:    
-            print "Age: " + self.age
+            print "Age: " + str(self.age)
             
         if self.timeTeaching != None:
-            print "Has been teaching for " + self.timeTeaching + " years"
+            print "Has been teaching for " + str(self.timeTeaching) + " years"
             
         if self.hireDate[0] != None and self.hireDate[1] != None and self.hireDate[2] != None:
-            print "Has taught since " + self.hireDate[0] + " " + self.hireDate[1] + ", " + self.hireDate[2]
+            print "Has taught since " + str(self.hireDate[0]) + "/" + str(self.hireDate[1]) + "/" + str(self.hireDate[2])
             
         print "Full time or part time: ",
         if self.fullTime == 'Y':
@@ -69,18 +69,18 @@ class faculty:
         else:
             print "part time"
             
-        print "Number of classes currently teaching: " + self.numClasses
+        print "Number of classes currently teaching: " + str(self.numClasses)
         
-        if self.hireDate:
-            print "Classes being taught currently: " + self.hireDate
+        if self.currentCourses:
+            print "Classes being taught currently: " + str(self.currentCourses)
             
-        print "Number of students currently advising: " + self.studentsAdvised 
+        print "Number of students currently advising: " + str(self.studentsAdvised) 
         
         if self.expertise:
-            print "Areas of expertise: " + self.expertise
+            print "Areas of expertise: " + str(self.expertise)
             
         if self.salary:
-            print "Yearly salary: " + self.salary
+            print "Yearly salary: " + str(self.salary)
         
     def getNumClasses(self):
         return self.numClasses
@@ -89,10 +89,13 @@ class faculty:
         return self.expertise
         
     def getWholeName(self):
-        return self.lastName + ", " + self.firstName + " " + self.middleName
+        return self.lastName + ", " + self.firstName
         
     def getFirstName(self):
         return self.firstName
+        
+    def setFirstName(self, newName):
+        self.firstName = newName
     
     def getLastName(self):
         return self.lastName
