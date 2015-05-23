@@ -14,12 +14,16 @@ class faculty:
     def __init__(self, lName, fullTimeStatus, numClassesTaught, numStudentsAdvised, expertiseList):
         
         self.firstName = None
-        self.middleName = None
         self.lastName = lName
+        
+        self.age = None
+        self.timeTeaching = None
         
         self.fullTime = fullTimeStatus 
         self.numClasses = numClassesTaught
         self.studentsAdvised = numStudentsAdvised
+        
+        self.salary = None
         
         self.expertise = expertiseList
         
@@ -38,9 +42,24 @@ class faculty:
     def getLastName(self):
         return self.lastName
         
-    def getMiddleName(self):
-        return self.middleName
+    def getAge(self):
+        return self.age
+        
+    def setAge(self, newAge):
+        self.age = newAge
     
     # Returns 1 if Y, 0 if N    
     def getFullTime(self):
         return self.fullTime
+        
+    def setTimeTeaching(self, num):
+        self.timeTeaching = num
+    
+    def checkForSabbatical(self):
+        return (self.timeTeaching % 7 == 0)
+        
+    def getSalary(self):
+        return self.salary
+        
+    def setSalary(self, newSalary):
+        self.salary = newSalary
