@@ -57,11 +57,11 @@ class faculty:
         if self.age != None:    
             print "Age: " + self.age
             
-        if self.timeTeaching != None
+        if self.timeTeaching != None:
             print "Has been teaching for " + self.timeTeaching + " years"
             
         if self.hireDate[0] != None and self.hireDate[1] != None and self.hireDate[2] != None:
-            print "Has taught since " self.hireDate[0] + " " + self.hireDate[1] + ", " + self.hireDate[2]
+            print "Has taught since " + self.hireDate[0] + " " + self.hireDate[1] + ", " + self.hireDate[2]
             
         print "Full time or part time: ",
         if self.fullTime == 'Y':
