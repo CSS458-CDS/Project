@@ -11,6 +11,7 @@ class faculty:
             
             fullTime: determines if faculty member is full-time (1 if yes, 0 if no)
             numClasses: how many classes are being taught by faculty member
+            currentCourses = list of course numbers for the courses being taught currently by the faculty member
             studentsAdvised: how many students are being advised currently by the faculty member
             expertise: list of subjects faculty member is an expert in
             
@@ -19,8 +20,6 @@ class faculty:
                             faculty member will earn as salary
             
             salaryRatio = final number used to determine salary, based on whether the faculty member is full time or not
-            
-            currentCourses = list of course numbers for the courses being taught currently by the faculty member
     """
     
     def __init__(self, lName, fullTimeStatus, numClassesTaught, numStudentsAdvised, expertiseList):
@@ -29,11 +28,13 @@ class faculty:
         self.lastName = lName
         self.age = None
         
-        self.timeTeaching = None
+        self.timeTeaching = None # In years
         self.hireDate = [None, None, None] # In the format of Month, Day, Year (all integers, like [5, 23, 2015])
+                                           # ASSUMPTION: if a date is provided, it will be a "complete" date.
         
         self.fullTime = fullTimeStatus 
         self.numClasses = numClassesTaught
+        self.currentCourses = [] # List of currently taught courses
         self.studentsAdvised = numStudentsAdvised
         self.expertise = expertiseList
         
@@ -45,7 +46,41 @@ class faculty:
         else: # 'N'
             self.salaryRatio = self.partTimeRatio
             
-        self.currentCourses = [] # List of currently taught courses
+        
+        
+    def display(self):
+        if self.firstName != None:
+            print self.lastName + ", " + self.firstName
+        else:
+            print self.lastName
+        
+        if self.age != None:    
+            print "Age: " + self.age
+            
+        if self.timeTeaching != None
+            print "Has been teaching for " + self.timeTeaching + " years"
+            
+        if self.hireDate[0] != None and self.hireDate[1] != None and self.hireDate[2] != None:
+            print "Has taught since " self.hireDate[0] + " " + self.hireDate[1] + ", " + self.hireDate[2]
+            
+        print "Full time or part time: ",
+        if self.fullTime == 'Y':
+            print "full time"
+        else:
+            print "part time"
+            
+        print "Number of classes currently teaching: " + self.numClasses
+        
+        if self.hireDate:
+            print "Classes being taught currently: " + self.hireDate
+            
+        print "Number of students currently advising: " + self.studentsAdvised 
+        
+        if self.expertise:
+            print "Areas of expertise: " + self.expertise
+            
+        if self.salary:
+            print "Yearly salary: " + self.salary
         
     def getNumClasses(self):
         return self.numClasses
