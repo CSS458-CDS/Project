@@ -27,21 +27,21 @@ def buildFaculty(fileName=g.FACULTY_FILE):
     ws = wb.active
     
     # Build faculty from first readable row to last
-    for row in range(g.FACULTY_FILE_FIRST, g.FACULTY_FILE_LAST):
-        if ws["A"+str(row)] is not None and row > 4:  # Rows > 4 in the file have relevant data
-            lastName = ws["A"+str(row)].value
+    row = 5
+    while ws["A"+str(row)] is not None:  # Rows >= 5 in the file have relevant data
+        lastName = ws["A"+str(row)].value
+        
+        if ws["B"+str(row)].value == 'Y':
+            fullTime = 1
+        else:
+            fullTime = 0
             
-            if ws["B"+str(row)].value == 'Y':
-                fullTime = 1
-            else:
-                fullTime = 0
-                
-            numClasses = ws["C"+str(row)].value + 0.
-            studentsAdvised = ws["D"+str(row)].value
-            
-            expertise = [ws["E"+str(row)].value]
-            
-            if ws["F"+str(row)].value != None:
-                expertise.append(ws["F"+str(row)].value)
-            if ws["G"+str(row)].value != None:
-                expertise.append(ws["G"+str(row)].value)
+        numClasses = ws["C"+str(row)].value + 0.
+        studentsAdvised = ws["D"+str(row)].value
+        
+        expertise = [ws["E"+str(row)].value]
+        
+        if ws["F"+str(row)].value != None:
+            expertise.append(ws["F"+str(row)].value)
+        if ws["G"+str(row)].value != None:
+            expertise.append(ws["G"+str(row)].value)
