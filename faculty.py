@@ -27,6 +27,15 @@ class faculty:
         
         self.expertise = expertiseList
         
+        self.partTimeRatio = .5 # Used to determine how much salary a faculty member makes on part time
+        
+        if fullTimeStatus == 'Y':
+            self.salaryRatio = 1.
+        else: # 'N'
+            self.salaryRatio = self.partTimeRatio
+            
+        self.currentCourses = [] # List of currently taught courses
+        
     def getNumClasses(self):
         return self.numClasses
         
@@ -62,4 +71,7 @@ class faculty:
         return self.salary
         
     def setSalary(self, newSalary):
-        self.salary = newSalary
+        self.salary = newSalary * self.salaryRatio
+
+    def getCurrentCourses(self):
+        return self.currentCourses
