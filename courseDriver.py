@@ -37,6 +37,7 @@ def buildClasses(fileName=g.COURSE_FILE):
                 if result.num != -1:
                     result.getCourseData()
                     result.getTitle()
+                    result.set_days()
                     g.SUMCAT.append(result)
 
     #Build all Autumn courses (starting in column F)
@@ -47,6 +48,7 @@ def buildClasses(fileName=g.COURSE_FILE):
                 if result.num != -1:
                     result.getCourseData()
                     result.getTitle()
+                    result.set_days()
                     g.AUTCAT.append(result)
     #Build all Winter courses (starting in column K)
     for row in range(g.COURSE_FILE_FIRST,g.COURSE_FILE_LAST):
@@ -56,6 +58,7 @@ def buildClasses(fileName=g.COURSE_FILE):
                 if result.num != -1:
                     result.getCourseData()
                     result.getTitle()
+                    result.set_days()
                     g.WINCAT.append(result)
     #Build all Spring courses (starting in column P)
     for row in range(g.COURSE_FILE_FIRST,g.COURSE_FILE_LAST):
@@ -65,6 +68,7 @@ def buildClasses(fileName=g.COURSE_FILE):
                 if result.num != -1:
                     result.getCourseData()
                     result.getTitle()
+                    result.set_days()
                     g.SPRCAT.append(result)
 
 
