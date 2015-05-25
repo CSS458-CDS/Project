@@ -336,6 +336,29 @@ Faculty expertise:
     def set_field(self, num):
         self.field.append( g.FIELDS[num])
 
+ # ==================================================================================================================
+    def set_days(self):
+        s = str(self.meetingDays)
+        days = []
+        if "M" in s:
+            days.append("Monday")
+        if "T/" in s or "T " in s or "Tu" in s or s == "T":
+            days.append("Tuesday")
+
+        if "W" in s:
+            days.append("Wednesday")
+        if "Th" in s:
+            days.append("Thursday")
+        if "F" in s:
+            days.append("Friday")
+        if len(days) > 0:
+            self.meetingDays = days
+        else:
+            print()
+            print("Couldn't parse day string for: ", end="", sep="")
+            self.display()
+            print()
+
 
 
 
