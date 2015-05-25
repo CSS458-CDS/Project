@@ -36,6 +36,7 @@ class Student(object):
         self.credit = 0
         self.finishedCourses = []
         self.currentCourses = []
+        self.finishedCore = []
         self.isMaster = master
         self.GPA = N.random.normal(MEAN_GPA,STD)
         if(self.GPA > 4.0):
@@ -137,21 +138,61 @@ class Student(object):
         """
         Description: add a course object to currentCourses,
         Pre : student properties are appropriately set
-        Post : A course object have been added
+        Post : A course object have been added, bool is returned
         Parameters:
             course: course object
-        Returns: None
+        Returns: True if registration is successful, false otherwise
         """
         # this student is able to register for a certain course if
         # 1.they have taken the prerequisite course
         # 2.course is not full
-        # 3. TBD
+        # 3.no time conflict
         if (course.requirement in self.finishedCourses and
-            course.spots != 0):
+            course.spots != 0 and self.timeConflict(course) == False):
             # student tries to register capstone
             if(self.ready_for_capstone() and course.num == 497):
                 course.spots -= 1
                 self.currentCourses.append(course);
+                return True
             elif(course.num != 497):
                 course.spots -=1
                 self.currentCourses.append(course);
+                return True
+            else:
+                return False
+        else:
+            return False
+    # ==================================================================================================================
+    def timeConflict(self,course):
+        """
+        Description: determines whether the course to be registered has time conflicts with registered classes
+        Pre : student properties are appropriately set
+        Post : boolean is returned
+        Parameters:
+            course: course object
+        Returns: True if time conflicts, false otherwise
+        """
+        # haven't registered for any courses
+        if(len(self.currentCourses) == 0):
+            return False
+        else:
+            for i in range(0,len(self.currentCourses) ):
+                # compare with the time
+                if(self.currentCourses[i].time == course.time and self.dayConflict(self.currentCourses[i].day,course.day) == True):
+                    return True
+            return False
+
+    # ==================================================================================================================
+    def dayConflict(self, daylist1, daylist2):
+        """
+        Description: determines whether two day list conficts
+        Pre : two lists are set
+        Post : boolean is returned
+        Parameters:
+            course: course object
+        Returns: True if day conflicts, false otherwise
+        """
+        for i in range(0, len(daylist2)):
+            if(daylist2[i] in daylist1):
+                return True
+        return False

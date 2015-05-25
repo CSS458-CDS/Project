@@ -51,9 +51,19 @@ def registration(students, courses):
                 courses: a list of course objects
     Returns: None
     """
+    # make a course index list
+    coursesIndex = []
+    coreIndex = []
+    for i in range(0, len(courses)):
+        coursesIndex.append(courses[i].num)
+    if(301 in coursesIndex):
+
     # register junior
     for i in range(0,len(students[0])):
-        
+        # random number of class
+        numberOfClass = N.random.randint(1,MAX_CLASS_PER_QUARTER + 1)
+        while(len(students[0][i].currentCourses) < numberOfClass):
+
 # ======================================================================================================================
 def endOfQuarter(students):
     """
