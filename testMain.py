@@ -2,6 +2,7 @@
 NUM_OF_JUNIOR = 80
 NUM_OF_SENIOR = 150
 NUM_OF_MASTER = 40
+MAX_CLASS_PER_QUARTER = 4
 # ======================================================================================================================
 import numpy as N
 from Student import Student
@@ -50,6 +51,9 @@ def registration(students, courses):
                 courses: a list of course objects
     Returns: None
     """
+    # register junior
+    for i in range(0,len(students[0])):
+        
 # ======================================================================================================================
 def endOfQuarter(students):
     """
@@ -64,6 +68,7 @@ def endOfQuarter(students):
                     students[2] is master
     Returns: None
     """
+
     displayData()
 # ======================================================================================================================
 def displayData():

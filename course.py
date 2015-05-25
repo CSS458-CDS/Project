@@ -36,7 +36,7 @@ class Course:
     def __init__(self, quarter=-1, courseNum=None, time=None, day=None, cap=None):
         self.requirement = None
         self.taughtBy = None
-        self.field = "Default Field"
+        self.field = []
         self.section = -1
         self.dept = []
         self.title = "Default Title"
