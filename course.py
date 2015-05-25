@@ -89,6 +89,33 @@ class Course:
             self.core = True
         else:
             self.elective = True
+
+    def set_field(self, num):
+        self.field.append( g.FIELDS[num])
+        return
+    
+    def set_days(self):
+        s = str(self.meetingDays)
+        days = []
+        if "M" in s:
+            days.append("Monday")
+        if "T/" in s or "T " in s or "Tu" in s or s == "T":
+            days.append("Tuesday")
+
+        if "W" in s:
+            days.append("Wednesday")
+        if "Th" in s:
+            days.append("Thursday")
+        if "F" in s:
+            days.append("Friday")
+        if len(days) > 0:
+            self.meetingDays = days
+        else:
+            print()
+            print("Couldn't parse day string for: ", end="", sep="")
+            self.display()
+            print()
+
     def getTitle(self):
         self.num = int(self.num)
         if self.dept == "CSS":
@@ -316,48 +343,8 @@ class Course:
             print("No title could be found for:", self.num, end="\t")
             self.display()
 
-#    Sets the field for desired expertise
-"""
-Faculty expertise:
-  0  Programming
-  1  Scientific Computing
-  2  Software Engineering
-  3  Operating Systems
-  4  Hardware
-  5  Cybersecurity
-  6  Writing
-  7  Databases
-  8  Networking
-  9  Teaching
-  10  Computer Engineering
-  11    Graphics
-"""
- # ==================================================================================================================
-    def set_field(self, num):
-        self.field.append( g.FIELDS[num])
 
- # ==================================================================================================================
-    def set_days(self):
-        s = str(self.meetingDays)
-        days = []
-        if "M" in s:
-            days.append("Monday")
-        if "T/" in s or "T " in s or "Tu" in s or s == "T":
-            days.append("Tuesday")
 
-        if "W" in s:
-            days.append("Wednesday")
-        if "Th" in s:
-            days.append("Thursday")
-        if "F" in s:
-            days.append("Friday")
-        if len(days) > 0:
-            self.meetingDays = days
-        else:
-            print()
-            print("Couldn't parse day string for: ", end="", sep="")
-            self.display()
-            print()
 
 
 
