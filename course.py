@@ -32,6 +32,7 @@ class Course:
             Difficulty: from 0 to 1, indicates how difficult a class is (impacts grade distribution)
             spots: 0 to capacity, the spots left in this course
     """
+# ==================================================================================================================
     def __init__(self, quarter=-1, courseNum=None, time=None, day=None, cap=None):
         self.requirement = None
         self.taughtBy = None
@@ -60,7 +61,7 @@ class Course:
             self.spots = cap
             self.time = -1
 
-
+ # ==================================================================================================================
     def display(self, title=False):
         if self.section != -1 and title:
             print(self.dept, self.num, self.title, self.section, "\t", self.meetingDays, "\t", self.capacity, "\t", self.time)
@@ -316,26 +317,26 @@ class Course:
             self.display()
 
 #    Sets the field for desired expertise
-#   0:programming
-
+"""
+Faculty expertise:
+  0  Programming
+  1  Scientific Computing
+  2  Software Engineering
+  3  Operating Systems
+  4  Hardware
+  5  Cybersecurity
+  6  Writing
+  7  Databases
+  8  Networking
+  9  Teaching
+  10  Computer Engineering
+  11    Graphics
+"""
+ # ==================================================================================================================
     def set_field(self, num):
         self.field.append( g.FIELDS[num])
 
 
-"""
-Faculty expertise:
-    Programming
-    Scientific Computing
-    Software Engineering
-    Operating Systems
-    Hardware
-    Cybersecurity
-    Writing
-    Databases
-    Networking
-    Teaching
-    Computer Engineering
-    Graphics
-"""
+
 
 
