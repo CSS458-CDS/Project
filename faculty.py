@@ -50,37 +50,40 @@ class faculty:
         
     def display(self):
         if self.firstName != None:
-            print self.lastName + ", " + self.firstName
+            st0 = self.lastName + ", " + self.firstName
+            print(st0)
         else:
-            print self.lastName
+            print(self.lastName)
         
         if self.age != None:    
-            print "Age: " + str(self.age)
+            st1 = "Age: " + str(self.age)
+            print(st1)
             
         if self.timeTeaching != None:
-            print "Has been teaching for " + str(self.timeTeaching) + " years"
+            st2 = "Has been teaching for " + str(self.timeTeaching) + " years"
+            print(st2)
             
         if self.hireDate[0] != None and self.hireDate[1] != None and self.hireDate[2] != None:
-            print "Has taught since " + str(self.hireDate[0]) + "/" + str(self.hireDate[1]) + "/" + str(self.hireDate[2])
+            st3= "Has taught since " + str(self.hireDate[0]) + "/" + str(self.hireDate[1]) + "/" + str(self.hireDate[2])
+            print(st3)
             
-        print "Full time or part time: ",
         if self.fullTime == 'Y':
-            print "full time"
+            print("full time")
         else:
-            print "part time"
+            print("part time")
             
-        print "Number of classes currently teaching: " + str(self.numClasses)
+        print( "Number of classes currently teaching: ", str(self.numClasses))
         
         if self.currentCourses:
-            print "Classes being taught currently: " + str(self.currentCourses)
+            print("Classes being taught currently: ", str(self.currentCourses))
             
-        print "Number of students currently advising: " + str(self.studentsAdvised) 
+        print( "Number of students currently advising: ", str(self.studentsAdvised) )
         
         if self.expertise:
-            print "Areas of expertise: " + str(self.expertise)
+            print( "Areas of expertise: ", str(self.expertise))
             
         if self.salary:
-            print "Yearly salary: " + str(self.salary)
+            print ("Yearly salary: ", str(self.salary))
         
     def getNumClasses(self):
         return self.numClasses
