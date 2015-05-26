@@ -1,11 +1,11 @@
+import sys
 from faculty import faculty
 
 """
-This class provides methods necessary for building a schedule for one faculty member that does not conflict with
+This course provides methods necessary for building a schedule for one faculty member that does not conflict with
 other faculty members' schedules, and reflects the expertise of the faculty member in question.
 
 The courses are sorted into 3 categories for each member: high priority, medium priority, and low priority. 
-
 High priority courses are the first courses to be considered when building a schedule for a faculty member. For example,
 "Secure Systems" (listed as 337) is a high priority course for a faculty member who is an expert in Cybersecurity.
 
@@ -19,154 +19,175 @@ and sorts them into high and medium priorities, these same courses are removed f
 remain a handful of courses. These courses are considered for a faculty member's schedule if nothing is available from
 high and medium priority, and the faculty member is needed to teach one or more of these courses.
 
-This class is still WIP. The following areas are still unfinished at the time of this commit:
+This course is still a WIP. The following areas are still unfinished at the time of this commit:
 - Building the faculty members' schedules and checking them against one another
 - May change low priority course conditions
 - Testing - lots of testing
-
 """
 
-expertList = ["Programming", "Cybersecurity", "Teaching"] # Testing
+def main():
+    
+    # Build list with 5 faculty members
+    listOfMembers = []
+    newFac1 = faculty("Stark", "Y", 12, 5, ["Programming", "Cybersecurity", "Teaching"])
+    newFac2 = faculty("Rogers", "Y", 12, 5, ["Hardware", "Operating Systems"])
+    newFac3 = faculty("Banner", "Y", 12, 5, ["Scientific Computing"])
+    newFac4 = faculty("Romanoff", "Y", 12, 5, ["Scientific Engineering", "Databases"])
+    newFac5 = faculty("Barton", "Y", 12, 5, ["Programming", "Networking"])
+    
+    listOfMembers.extend((newFac1,newFac2,newFac3,newFac4,newFac5)) # List with 5 faculty members
+    
+    # Assign high/med/low priority courses for each faculty member
+    for i in range(0, len(listOfMembers)):
+        courseList = prioritizeCourses(listOfMembers[i])
+        scheduleCourses(courseList)
+        # ...TO BE CONTINUED!
 
-newFac = faculty("Hawkins", "Y", 12, 5, expertList) # Testing
-
-def facultyCourseScheduler(fac):
-    highPrio = [] # Designates classes that the faculty member is exceptional in
-    medPrio = [] # Designates classes that the faculty member can teach
-    lowPrio = [] # Designates classes that the faculty member should not teach or
+def prioritizeCourses(fac):
+    highPrio = [] # Designates courses that the faculty member is exceptional in
+    medPrio = [] # Designates courses that the faculty member can teach
+    lowPrio = [] # Designates courses that the faculty member should not teach or
                  # are outside of their range of expertise
     
     populateLowPrio(lowPrio)
     
+    # courseList = all courses relevant to the field
     if "Programming" in fac.getExpertise():
-        classList = [107,161,162,332,341,342,343,360,385,421,422,427,428,430,432,\
+        courseList = [107,161,162,332,341,342,343,360,385,421,422,427,428,430,432,\
                     448,455,458,474,475,501,502,503,506,507,508,533,553,555,565,\
                     566,572,577]
                     
-        for i in range(len(classList)):
-            if classList[i] not in medPrio:
-                medPrio.append(classList[i])
+        for i in range(len(courseList)):
+            if courseList[i] not in medPrio:
+                medPrio.append(courseList[i])
             
-            if classList[i] in lowPrio:
-                lowPrio.remove(classList[i])
+            if courseList[i] in lowPrio:
+                lowPrio.remove(courseList[i])
                 
     if "Scientific Computing" in fac.getExpertise():
-        classList = [107,161,162,211,225,290,332,337,341,342,343,350,360,370,371,\
+        courseList = [107,161,162,211,225,290,332,337,341,342,343,350,360,370,371,\
                     385,411,421,422,427,428,430,432,434,455,458,475,480,490,495,\
                     496,497,498,499,501,502,503,506,507,508,517,533,537,552,553,\
                     555,565,566,577,590]
                     
-        for i in range(len(classList)):
-            if classList[i] not in medPrio:
-                medPrio.append(classList[i])
+        for i in range(len(courseList)):
+            if courseList[i] not in medPrio:
+                medPrio.append(courseList[i])
             
-            if classList[i] in lowPrio:
-                lowPrio.remove(classList[i])
+            if courseList[i] in lowPrio:
+                lowPrio.remove(courseList[i])
                 
     if "Scientific Engineering" in fac.getExpertise():
-        classList = [107,161,162,211,225,290,332,337,341,342,343,350,360,370,371,\
+        courseList = [107,161,162,211,225,290,332,337,341,342,343,350,360,370,371,\
                     385,411,421,422,427,428,430,432,434,455,458,475,480,490,495,\
                     496,497,498,499,501,502,503,506,507,508,517,533,537,552,553,\
                     555,565,566,577,590]
                     
-        for i in range(len(classList)):
-            if classList[i] not in medPrio:
-                medPrio.append(classList[i])
+        for i in range(len(courseList)):
+            if courseList[i] not in medPrio:
+                medPrio.append(courseList[i])
             
-            if classList[i] in lowPrio:
-                lowPrio.remove(classList[i])
+            if courseList[i] in lowPrio:
+                lowPrio.remove(courseList[i])
     
     # Below, we deal with specialties of narrower focus; we put these in high
-    # priority immediately.            
-                                        
+    # priority immediately.   
+    
+    # Format:
+    # courseList = all courses relevant to the field
+    # Add these courses to high priority, remove from medium and low                                                
     if "Cybersecurity" in fac.getExpertise():
-        classList = [337,415,432,514,517,519,527,537,538,577,578,579]
+        courseList = [337,415,432,514,517,519,527,537,538,577,578,579]
         
-        for i in range(len(classList)):
-            if classList[i] not in highPrio:
-                highPrio.append(classList[i])
+        for i in range(len(courseList)):
+            if courseList[i] not in highPrio:
+                highPrio.append(courseList[i])
                 
-            if classList[i] in medPrio:
-                medPrio.remove(classList[i])
-            elif classList[i] in lowPrio:
-                lowPrio.remove(classList[i])
+            if courseList[i] in medPrio:
+                medPrio.remove(courseList[i])
+            elif courseList[i] in lowPrio:
+                lowPrio.remove(courseList[i])
         
     if "Writing" in fac.getExpertise():
-        classList = [301,411]
+        courseList = [301,411]
         
-        for i in range(len(classList)):
-            if classList[i] not in highPrio:
-                highPrio.append(classList[i])
+        for i in range(len(courseList)):
+            if courseList[i] not in highPrio:
+                highPrio.append(courseList[i])
                 
-        if classList[i] in medPrio:
-            medPrio.remove(classList[i])
-        elif classList[i] in lowPrio:
-            lowPrio.remove(classList[i])
+        if courseList[i] in medPrio:
+            medPrio.remove(courseList[i])
+        elif courseList[i] in lowPrio:
+            lowPrio.remove(courseList[i])
     
     if "Databases" in fac.getExpertise():
-        classList = [478]
+        courseList = [478]
         
-        for i in range(len(classList)):
-            if classList[i] not in highPrio:
-                highPrio.append(classList[i])
+        for i in range(len(courseList)):
+            if courseList[i] not in highPrio:
+                highPrio.append(courseList[i])
                 
-        if classList[i] in medPrio:
-            medPrio.remove(classList[i])
-        elif classList[i] in lowPrio:
-            lowPrio.remove(classList[i])
+        if courseList[i] in medPrio:
+            medPrio.remove(courseList[i])
+        elif courseList[i] in lowPrio:
+            lowPrio.remove(courseList[i])
         
     if "Hardware" in fac.getExpertise():
-        classList = [225,421,422,427,428]
+        courseList = [225,421,422,427,428]
         
-        for i in range(len(classList)):
-            if classList[i] not in highPrio:
-                highPrio.append(classList[i])
+        for i in range(len(courseList)):
+            if courseList[i] not in highPrio:
+                highPrio.append(courseList[i])
                 
-        if classList[i] in medPrio:
-            medPrio.remove(classList[i])
-        elif classList[i] in lowPrio:
-            lowPrio.remove(classList[i])
+        if courseList[i] in medPrio:
+            medPrio.remove(courseList[i])
+        elif courseList[i] in lowPrio:
+            lowPrio.remove(courseList[i])
         
     if "Networking" in fac.getExpertise():
-        classList = [432,537,538]
+        courseList = [432,537,538]
         
-        for i in range(len(classList)):
-            if classList[i] not in highPrio:
-                highPrio.append(classList[i])
+        for i in range(len(courseList)):
+            if courseList[i] not in highPrio:
+                highPrio.append(courseList[i])
                 
-        if classList[i] in medPrio:
-            medPrio.remove(classList[i])
-        elif classList[i] in lowPrio:
-            lowPrio.remove(classList[i])
+        if courseList[i] in medPrio:
+            medPrio.remove(courseList[i])
+        elif courseList[i] in lowPrio:
+            lowPrio.remove(courseList[i])
         
     if "Operating Systems" in fac.getExpertise():
-        classList = [421,427,428, 430, 448]
+        courseList = [421,427,428, 430, 448]
         
-        for i in range(len(classList)):
-            if classList[i] not in highPrio:
-                highPrio.append(classList[i])
+        for i in range(len(courseList)):
+            if courseList[i] not in highPrio:
+                highPrio.append(courseList[i])
                 
-        if classList[i] in medPrio:
-            medPrio.remove(classList[i])
-        elif classList[i] in lowPrio:
-            lowPrio.remove(classList[i])
+        if courseList[i] in medPrio:
+            medPrio.remove(courseList[i])
+        elif courseList[i] in lowPrio:
+            lowPrio.remove(courseList[i])
         
     if "Teaching" in fac.getExpertise():
-        classList = [295]
+        courseList = [295]
         
-        for i in range(len(classList)):
-            if classList[i] not in highPrio:
-                highPrio.append(classList[i])
+        for i in range(len(courseList)):
+            if courseList[i] not in highPrio:
+                highPrio.append(courseList[i])
                 
-        if classList[i] in medPrio:
-            medPrio.remove(classList[i])
-        elif classList[i] in lowPrio:
-            lowPrio.remove(classList[i])
+        if courseList[i] in medPrio:
+            medPrio.remove(courseList[i])
+        elif courseList[i] in lowPrio:
+            lowPrio.remove(courseList[i])
             
-    print highPrio
-    print medPrio
-    print lowPrio
+    print "High priority courses: " + str(highPrio)
+    print "Medium priority courses: " + str(medPrio)
+    print "Low priority courses: " + str(lowPrio)
     
+def scheduleCourses(courseList):
+    pass
+
+# Append every course to the lowPrio list        
 def populateLowPrio(lowPrio):
     lowPrio.append(107) # Introduction to Programming through Animated Storytelling
     lowPrio.append(161) # Fundamentals Of Computing
@@ -236,5 +257,7 @@ def populateLowPrio(lowPrio):
     lowPrio.append(578) # Vulnerability Analysis and Detection
     lowPrio.append(579) # Malware and Attack Reverse Engineering
     lowPrio.append(590) # Special Topics in Computing
-    
-facultyCourseScheduler(newFac) # Testing - points to this class's "main" method, so to speak
+
+if __name__ == "__main__": # Testing - points to this course's "main" method, so to speak
+    sys.exit(main())
+
