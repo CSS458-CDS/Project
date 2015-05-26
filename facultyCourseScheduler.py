@@ -1,8 +1,34 @@
 from faculty import faculty
 
-expertList = ["Programming", "Cybersecurity", "Teaching"]
+"""
+This class provides methods necessary for building a schedule for one faculty member that does not conflict with
+other faculty members' schedules, and reflects the expertise of the faculty member in question.
 
-newFac = faculty("Hawkins", "Y", 12, 5, expertList)
+The courses are sorted into 3 categories for each member: high priority, medium priority, and low priority. 
+
+High priority courses are the first courses to be considered when building a schedule for a faculty member. For example,
+"Secure Systems" (listed as 337) is a high priority course for a faculty member who is an expert in Cybersecurity.
+
+Medium priority courses are dictated mainly by the prevalence of the three expertise elements "Programming", "Scientific
+Computing", and "Scientific Engineering". These are the most prolific areas of expertise and so there are many faculty
+members available for courses in these fields. If there are no courses available to teach in high priority, the medium
+priority list will be searched instead.
+
+Low priority courses start as the entire collection of courses (see populateLowPrio()). As the algorithm finds courses
+and sorts them into high and medium priorities, these same courses are removed from low priority. At the end there should
+remain a handful of courses. These courses are considered for a faculty member's schedule if nothing is available from
+high and medium priority, and the faculty member is needed to teach one or more of these courses.
+
+This class is still WIP. The following areas are still unfinished at the time of this commit:
+- Building the faculty members' schedules and checking them against one another
+- May change low priority course conditions
+- Testing - lots of testing
+
+"""
+
+expertList = ["Programming", "Cybersecurity", "Teaching"] # Testing
+
+newFac = faculty("Hawkins", "Y", 12, 5, expertList) # Testing
 
 def facultyCourseScheduler(fac):
     highPrio = [] # Designates classes that the faculty member is exceptional in
@@ -211,4 +237,4 @@ def populateLowPrio(lowPrio):
     lowPrio.append(579) # Malware and Attack Reverse Engineering
     lowPrio.append(590) # Special Topics in Computing
     
-facultyCourseScheduler(newFac)
+facultyCourseScheduler(newFac) # Testing - points to this class's "main" method, so to speak
