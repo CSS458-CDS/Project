@@ -1,6 +1,6 @@
 from faculty import faculty
 
-expertList = ["Programming", "Cybersecurity", "Software Engineering"]
+expertList = ["Programming", "Cybersecurity", "Teaching"]
 
 newFac = faculty("Hawkins", "Y", 12, 5, expertList)
 
@@ -49,27 +49,97 @@ def facultyCourseScheduler(fac):
             
             if classList[i] in lowPrio:
                 lowPrio.remove(classList[i])
-                
+    
+    # Below, we deal with specialties of narrower focus; we put these in high
+    # priority immediately.            
+                                        
     if "Cybersecurity" in fac.getExpertise():
-        pass
+        classList = [337,415,432,514,517,519,527,537,538,577,578,579]
+        
+        for i in range(len(classList)):
+            if classList[i] not in highPrio:
+                highPrio.append(classList[i])
+                
+            if classList[i] in medPrio:
+                medPrio.remove(classList[i])
+            elif classList[i] in lowPrio:
+                lowPrio.remove(classList[i])
         
     if "Writing" in fac.getExpertise():
-        pass
+        classList = [301,411]
+        
+        for i in range(len(classList)):
+            if classList[i] not in highPrio:
+                highPrio.append(classList[i])
+                
+        if classList[i] in medPrio:
+            medPrio.remove(classList[i])
+        elif classList[i] in lowPrio:
+            lowPrio.remove(classList[i])
     
     if "Databases" in fac.getExpertise():
-        pass
+        classList = [478]
+        
+        for i in range(len(classList)):
+            if classList[i] not in highPrio:
+                highPrio.append(classList[i])
+                
+        if classList[i] in medPrio:
+            medPrio.remove(classList[i])
+        elif classList[i] in lowPrio:
+            lowPrio.remove(classList[i])
         
     if "Hardware" in fac.getExpertise():
-        pass
+        classList = [225,421,422,427,428]
+        
+        for i in range(len(classList)):
+            if classList[i] not in highPrio:
+                highPrio.append(classList[i])
+                
+        if classList[i] in medPrio:
+            medPrio.remove(classList[i])
+        elif classList[i] in lowPrio:
+            lowPrio.remove(classList[i])
         
     if "Networking" in fac.getExpertise():
-        pass
+        classList = [432,537,538]
+        
+        for i in range(len(classList)):
+            if classList[i] not in highPrio:
+                highPrio.append(classList[i])
+                
+        if classList[i] in medPrio:
+            medPrio.remove(classList[i])
+        elif classList[i] in lowPrio:
+            lowPrio.remove(classList[i])
         
     if "Operating Systems" in fac.getExpertise():
-        pass
+        classList = [421,427,428, 430, 448]
+        
+        for i in range(len(classList)):
+            if classList[i] not in highPrio:
+                highPrio.append(classList[i])
+                
+        if classList[i] in medPrio:
+            medPrio.remove(classList[i])
+        elif classList[i] in lowPrio:
+            lowPrio.remove(classList[i])
         
     if "Teaching" in fac.getExpertise():
-        pass
+        classList = [295]
+        
+        for i in range(len(classList)):
+            if classList[i] not in highPrio:
+                highPrio.append(classList[i])
+                
+        if classList[i] in medPrio:
+            medPrio.remove(classList[i])
+        elif classList[i] in lowPrio:
+            lowPrio.remove(classList[i])
+            
+    print highPrio
+    print medPrio
+    print lowPrio
     
 def populateLowPrio(lowPrio):
     lowPrio.append(107) # Introduction to Programming through Animated Storytelling
