@@ -70,10 +70,30 @@ def registration(students, courses):
                     index = N.random.randin(0,len(courses))
                     if(courses[index].elective == True and students[i].register(courses[index]) == True):
                         keepLooping = False
-                    else
+                    else:
                         keepLooping = True
     # register senior
-
+    for i in range(0,len(students[1])):
+        # random number of class
+        numberOfClass = N.random.randint(1,MAX_CLASS_PER_QUARTER + 1)
+        #register for capstone
+        #register all the possible core classes
+        for j in range(0,len(courses)):
+            if(courses[j].core == True):
+                students[i].register(courses[j])
+        # if they register more cores than they can register
+        if(len(students[i].currentCourses) >= numberOfClass):
+            students[i].currentCourses = students[i].currentCourses[:numberOfClass + 1]
+        # fill the rest with electives
+        else:
+            for j in range (0, (numberOfClass - len(students[i].currentCourses))):
+                keepLooping = True
+                while(keepLooping):
+                    index = N.random.randin(0,len(courses))
+                    if(courses[index].elective == True and students[i].register(courses[index]) == True):
+                        keepLooping = False
+                    else:
+                        keepLooping = True
 
 
 # ======================================================================================================================
