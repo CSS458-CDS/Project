@@ -36,8 +36,8 @@ class Student(object):
         self.credit = 0
         self.finishedCourses = []
         self.currentCourses = []
-        self.finishedCore = []
         self.isMaster = master
+        self.quartersSpent = 0
         self.GPA = N.random.normal(MEAN_GPA,STD)
         if(self.GPA > 4.0):
             self.GPA = 4.0
@@ -56,6 +56,8 @@ class Student(object):
             self.finishedCourses.append(370)
             self.finishedCourses.append(422)
             self.finishedCourses.append(430)
+            self.finishedCore = self.finishedCourses
+            self.quartersSpent = 4
             # fill in the finishedCourses
             rest = (self.credit - 8 * 5 - MIN_JUNIOR_CREDIT) / 5
             for i in range(0, rest):
@@ -74,6 +76,8 @@ class Student(object):
             self.finishedCourses.append(422)
             self.finishedCourses.append(430)
             self.finishedCourses.append(497)
+            self.finishedCore = self.finishedCourses
+            self.quartersSpent = 8
             # fill in the finishedCourses
             rest = (self.credit - 8 * 5 - 10 - MIN_JUNIOR_CREDIT) / 5
             for i in range(0, rest):
@@ -147,8 +151,9 @@ class Student(object):
         # 1.they have taken the prerequisite course
         # 2.course is not full
         # 3.no time conflict
+        # 4.No retaking
         if (course.requirement in self.finishedCourses and
-            course.spots != 0 and self.timeConflict(course) == False):
+            course.spots != 0 and self.timeConflict(course) == False and course.num not in self.finishedCourses):
             # student tries to register capstone
             if(self.ready_for_capstone() and course.num == 497):
                 course.spots -= 1

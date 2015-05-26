@@ -51,18 +51,30 @@ def registration(students, courses):
                 courses: a list of course objects
     Returns: None
     """
-    # make a course index list
-    coursesIndex = []
-    coreIndex = []
-    for i in range(0, len(courses)):
-        coursesIndex.append(courses[i].num)
-    if(301 in coursesIndex):
-
     # register junior
     for i in range(0,len(students[0])):
         # random number of class
         numberOfClass = N.random.randint(1,MAX_CLASS_PER_QUARTER + 1)
-        while(len(students[0][i].currentCourses) < numberOfClass):
+        #register all the possible core classes
+        for j in range(0,len(courses)):
+            if(courses[j].core == True):
+                students[i].register(courses[j])
+        # if they register more cores than they can register
+        if(len(students[i].currentCourses) >= numberOfClass):
+            students[i].currentCourses = students[i].currentCourses[:numberOfClass + 1]
+        # fill the rest with electives
+        else:
+            for j in range (0, (numberOfClass - len(students[i].currentCourses))):
+                keepLooping = True
+                while(keepLooping):
+                    index = N.random.randin(0,len(courses))
+                    if(courses[index].elective == True and students[i].register(courses[index]) == True):
+                        keepLooping = False
+                    else
+                        keepLooping = True
+    # register senior
+
+
 
 # ======================================================================================================================
 def endOfQuarter(students):
@@ -89,7 +101,16 @@ def displayData():
     Parameters: None
     Returns: None
     """
-
+# ======================================================================================================================
+def moveToJunior(junior,senior):
+    """
+    Description: move junior to senior when the quarter they spend is 4
+    Pre : junior students has been set
+    Post :junior students has been moved
+    Parameters: junior: a list of junior students
+                senior: a list of senior students
+    Returns: None
+    """
 # ====================================================main==============================================================
 
 # read classes from file
