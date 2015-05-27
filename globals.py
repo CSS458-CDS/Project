@@ -5,11 +5,13 @@ FACULTY_FILE = "list_of_faculty.xlsx"
 COURSE_FILE_FIRST = 9
 #Last Line of relevant information in course file
 COURSE_FILE_LAST = 100
+COURSE_TITLE_PRINT_LENGTH = 20
 # of all the graduated student, the percentage of students becoming master student
 MASTER_STUDENT_PERCENT = 0.1
 #This list contains the classes that are considered core to the major.
 #Any classes that are not in this list are considered electives.
 CORE_CLASSES = {161, 162, 301, 342, 343, 350, 360, 370, 422, 430}
+
 #Course catalog. List of all the courses offered in Autum.
 AUTCAT = []
 #Course catalog. List of all the courses offered in Winter.
@@ -43,5 +45,6 @@ def get_all_electives():
     for i in range(len(SUMCAT)):
         if SUMCAT[i].num not in ALL_ELECTIVES:
             ALL_ELECTIVES.append(SUMCAT[i].num)
+
 
 
