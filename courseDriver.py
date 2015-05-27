@@ -4,6 +4,7 @@ This file provides the method to build course catalogs.
 import course as c
 import globals as g
 from openpyxl.reader.excel import load_workbook
+import time
 
 """---------------------------------------
 Creates course objects from a text file fileName
@@ -38,7 +39,8 @@ def buildClasses(fileName=g.COURSE_FILE):
                     result.getCourseData()
                     result.getTitle()
                     result.set_days()
-                    g.SUMCAT.append(result)
+                    if result.title != "Default Title":
+                        g.SUMCAT.append(result)
 
     #Build all Autumn courses (starting in column F)
     for row in range(g.COURSE_FILE_FIRST,g.COURSE_FILE_LAST):
@@ -49,7 +51,9 @@ def buildClasses(fileName=g.COURSE_FILE):
                     result.getCourseData()
                     result.getTitle()
                     result.set_days()
-                    g.AUTCAT.append(result)
+                    if result.title != "Default Title":
+                        g.AUTCAT.append(result)
+
     #Build all Winter courses (starting in column K)
     for row in range(g.COURSE_FILE_FIRST,g.COURSE_FILE_LAST):
         if ws["K"+str(row)] is not None:
@@ -59,7 +63,8 @@ def buildClasses(fileName=g.COURSE_FILE):
                     result.getCourseData()
                     result.getTitle()
                     result.set_days()
-                    g.WINCAT.append(result)
+                    if result.title != "Default Title":
+                        g.WINCAT.append(result)
     #Build all Spring courses (starting in column P)
     for row in range(g.COURSE_FILE_FIRST,g.COURSE_FILE_LAST):
         if ws["P"+str(row)] is not None:
@@ -69,7 +74,8 @@ def buildClasses(fileName=g.COURSE_FILE):
                     result.getCourseData()
                     result.getTitle()
                     result.set_days()
-                    g.SPRCAT.append(result)
+                    if result.title != "Default Title":
+                        g.SPRCAT.append(result)
 
 
 def make_one_course(ws, startColumn, startRow):
@@ -82,10 +88,22 @@ def make_one_course(ws, startColumn, startRow):
     dayCol = chr(ord(startColumn)+2)
     capCol = chr(ord(startColumn)+3)
     num = ws[numCol+str(row)].value
-    time = ws[timeCol+str(row)].value
+    timestr = str(ws[timeCol+str(row)].value)
+    if "-" in timestr:
+        timestr = timestr[0:timestr.index("-")]
+    while timestr[0] == "0":
+        timestr = timestr[1:]
+    if len(timestr) == 1:
+        timestr += ":00"
+    if len(timestr) > 5 and timestr.index(":") == 1:
+        timestr = timestr[0:4]
+    elif len(timestr) > 5:
+        timestr = timestr[0:5]
+    while len(timestr) < 5:
+        timestr = " " + timestr
     day = ws[dayCol+str(row)].value
     cap = ws[capCol+str(row)].value
-    result = c.Course(0, num,time,day,cap)
+    result = c.Course(0, num,timestr,day,cap)
     #Nicely behaving course number
     if type(result.num) == int:
         result.dept = "CSS"
@@ -152,5 +170,27 @@ def get_electives_from(catalog):
     return retval
 
 
+def print_catalogs():
+    if len(g.AUTCAT) == 0:
+        g.initialize_globals()
 
-g.initialize_globals()
+    print("Summer Catalog: ")
+    for i in g.SUMCAT:
+        i.display(title=True)
+    print("-------------------------------------------------------------------")
+
+    print("Autumn Catalog")
+    for i in g.AUTCAT:
+        i.display(title=True)
+    print("-------------------------------------------------------------------")
+
+    print("Winter Catalog")
+    for i in g.WINCAT:
+        i.display(title=True)
+    print("-------------------------------------------------------------------")
+    print("Spring Catalog")
+    for i in g.SPRCAT:
+        i.display(title=True)
+    print("-------------------------------------------------------------------")
+
+print_catalogs()
