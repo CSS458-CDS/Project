@@ -1,6 +1,6 @@
 # ===================================================Constant===========================================================
 MIN_JUNIOR_CREDIT = 90
-AVERAGE_CREDIT_EARNED_PER_YEAR = 45
+AVERAGE_CREDIT_EARNED_PER_YEAR = 40
 MIN_SENIOR_CREDIT = MIN_JUNIOR_CREDIT + AVERAGE_CREDIT_EARNED_PER_YEAR
 MEAN_GPA = 3.2
 STD = 0.5
@@ -59,9 +59,10 @@ class Student(object):
             self.finishedCore = self.finishedCourses
             self.quartersSpent = 4
             # fill in the finishedCourses
-            rest = (self.credit - 8 * 5 - MIN_JUNIOR_CREDIT) / 5
+            rest = int((self.credit - 8 * 5 - MIN_JUNIOR_CREDIT) / 5)
+
             for i in range(0, rest):
-                course_index = N.random.randint(0,(courses))
+                course_index = N.random.randint(0,len(courses))
                 self.finishedCourses.append(courses[course_index])
         # is a master student
         elif(self.isMaster == True):
@@ -79,9 +80,9 @@ class Student(object):
             self.finishedCore = self.finishedCourses
             self.quartersSpent = 8
             # fill in the finishedCourses
-            rest = (self.credit - 8 * 5 - 10 - MIN_JUNIOR_CREDIT) / 5
+            rest = int((self.credit - 8 * 5 - 10 - MIN_JUNIOR_CREDIT) / 5)
             for i in range(0, rest):
-                course_index = N.random.randint(0,(courses))
+                course_index = N.random.randint(0,len(courses))
                 self.finishedCourses.append(courses[course_index])
         # is a junior student
         else:

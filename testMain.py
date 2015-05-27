@@ -150,6 +150,41 @@ students  = [junior, senior, master]
 courses = [g.AUTCAT,g.WINCAT,g.SPRCAT,g.SUMCAT]
 # initialize professors
 professors = []
+
+#print out credit
+# print('junior credit:')
+# for i in range(0,NUM_OF_JUNIOR):
+#     print(junior[i].credit)
+# print('senior credit:')
+# for i in range(0,NUM_OF_SENIOR):
+#     print(senior[i].credit)
+# print('master credit:')
+# for i in range(0,NUM_OF_MASTER):
+#     print(master[i].credit)
+
+#print out GPA
+# print('junior GPA:')
+# for i in range(0,NUM_OF_JUNIOR):
+#     print(round(junior[i].GPA, 1))
+# print('senior GPA:')
+# for i in range(0,NUM_OF_SENIOR):
+#     print(round(senior[i].GPA,1))
+# print('master GPA:')
+# for i in range(0,NUM_OF_MASTER):
+#     print(round(master[i].GPA, 1))
+
+#print out finished courses
+print('junior class:')
+for i in range(0,NUM_OF_JUNIOR):
+    print(junior[i].finishedCourses)
+print('senior class:')
+for i in range(0,NUM_OF_SENIOR):
+    print(senior[i].finishedCourses)
+print('master class:')
+for i in range(0,NUM_OF_MASTER):
+    print(master[i].finishedCourses)
+
+
 # run model for 1 year
-for i in range(0,4):
-    simOneQuarter(students, professors, courses[i])
+# for i in range(0,4):
+#     simOneQuarter(students, professors, courses[i])
