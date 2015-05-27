@@ -4,28 +4,29 @@ from faculty import faculty
 """
 This course provides methods necessary for building a schedule for one faculty member that does not conflict with
 other faculty members' schedules, and reflects the expertise of the faculty member in question.
-
 The courses are sorted into 3 categories for each member: high priority, medium priority, and low priority. 
 High priority courses are the first courses to be considered when building a schedule for a faculty member. For example,
 "Secure Systems" (listed as 337) is a high priority course for a faculty member who is an expert in Cybersecurity.
-
 Medium priority courses are dictated mainly by the prevalence of the three expertise elements "Programming", "Scientific
 Computing", and "Scientific Engineering". These are the most prolific areas of expertise and so there are many faculty
 members available for courses in these fields. If there are no courses available to teach in high priority, the medium
 priority list will be searched instead.
-
 Low priority courses start as the entire collection of courses (see populateLowPrio()). As the algorithm finds courses
 and sorts them into high and medium priorities, these same courses are removed from low priority. At the end there should
 remain a handful of courses. These courses are considered for a faculty member's schedule if nothing is available from
 high and medium priority, and the faculty member is needed to teach one or more of these courses.
-
-This course is still a WIP. The following areas are still unfinished at the time of this commit:
+This course is still WIP. The following areas are still unfinished at the time of this commit:
 - Building the faculty members' schedules and checking them against one another
 - May change low priority course conditions
 - Testing - lots of testing
 """
 
 def main():
+    
+    # Listed in order from earliest class to latest class
+    coursesToTeach = [332, 478, 432, 107, 337, 343, 342]
+    
+    schedule = []
     
     # Build list with 5 faculty members
     listOfMembers = []
@@ -38,10 +39,13 @@ def main():
     listOfMembers.extend((newFac1,newFac2,newFac3,newFac4,newFac5)) # List with 5 faculty members
     
     # Assign high/med/low priority courses for each faculty member
-    for i in range(0, len(listOfMembers)):
-        courseList = prioritizeCourses(listOfMembers[i])
-        scheduleCourses(courseList)
-        # ...TO BE CONTINUED!
+    while len(coursesToTeach) > 0:
+        for i in range(0, len(listOfMembers)):
+            courseList = prioritizeCourses(listOfMembers[i])
+            newCourse = scheduleCourses(courseList, coursesToTeach)
+            schedule.append(str(listOfMembers[i].getLastName()) + " is teaching " + str(newCourse))
+            
+    print schedule
 
 def prioritizeCourses(fac):
     highPrio = [] # Designates courses that the faculty member is exceptional in
@@ -184,8 +188,26 @@ def prioritizeCourses(fac):
     print "Medium priority courses: " + str(medPrio)
     print "Low priority courses: " + str(lowPrio)
     
-def scheduleCourses(courseList):
-    pass
+    return [lowPrio, medPrio, highPrio]
+    
+def scheduleCourses(courseList, coursesToTeach):
+    for i in range (0, len(coursesToTeach)):
+        for j in range(0, len(courseList[2])):
+            if coursesToTeach[i] == courseList[2][j] and coursesToTeach[i] != None \
+            and courseList[2][j] != None:
+                dummyCourse = coursesToTeach[i]
+                coursesToTeach.remove(coursesToTeach[i])
+                return dummyCourse
+                
+    for i in range (0, len(coursesToTeach)):
+        for j in range(0, len(courseList[1])):
+            if coursesToTeach[i] == courseList[1][j] and coursesToTeach[i] != None \
+                and courseList[1][j] != None:
+                dummyCourse = coursesToTeach[i]
+                coursesToTeach.remove(coursesToTeach[i])
+                return dummyCourse
+                
+    return 666
 
 # Append every course to the lowPrio list        
 def populateLowPrio(lowPrio):
