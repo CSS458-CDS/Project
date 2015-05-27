@@ -62,17 +62,50 @@ class Course:
             self.time = -1
 
  # ==================================================================================================================
-    def display(self, title=False):
+    def display(self, title=False, pretty=True):
+        daystring = ""
+        if "Monday" in self.meetingDays:
+            daystring += "M"
+        if "Tuesday" in self.meetingDays:
+            daystring += "T"
+        if "Wednesday" in self.meetingDays:
+            daystring += "W"
+        if "Thursday" in self.meetingDays:
+            daystring += "Th"
+        if "Friday" in self.meetingDays:
+            daystring += "F"
+        while len(daystring) < len("MTWTHF"):
+            daystring += " "
+        #Truncate titles that are too long
+        titlestring = self.title
+        if pretty and len(self.title)>g.COURSE_TITLE_PRINT_LENGTH:
+            titlestring = self.title[0:g.COURSE_TITLE_PRINT_LENGTH]
+        elif pretty:
+            while len(titlestring) < g.COURSE_TITLE_PRINT_LENGTH:
+                titlestring += " "
+        #Print departments at uniform size
+        deptstring = self.dept
+        while len(deptstring) < len("CSSSKL"):
+            deptstring += " "
+        timestr = self.time
         if self.section != -1 and title:
-            print(self.dept, self.num, self.title, self.section, "\t", self.meetingDays, "\t", self.capacity, "\t", self.time)
+            if not pretty:
+                print(deptstring, self.num, titlestring, self.section, "\t", daystring, "\t", self.capacity, "\t", timestr)
+            else:
+                if len(self.title) > g.COURSE_TITLE_PRINT_LENGTH:
+                    titleShort = self.title[0:g.COURSE_TITLE_PRINT_LENGTH]
+                    print(deptstring, self.num, titleShort, self.section, "\t", daystring, "\t", self.capacity, "\t", timestr)
+                else:
+                    print(deptstring, self.num, titlestring, self.section, "\t", daystring, "\t", self.capacity, "\t", timestr)
+
         if self.section != -1 and not title:
-            print(self.dept, self.num, self.section, "\t", self.meetingDays, "\t", self.capacity, "\t", self.time)
+            print(deptstring, self.num, self.section, "\t", daystring, "\t", self.capacity, "\t", timestr)
 
         else:
             if title:
-                print(self.dept, self.num, self.title, "\t", self.meetingDays, "\t", self.capacity, "\t", self.time)
+                print(deptstring, self.num, titlestring, "\t", daystring, "\t", self.capacity, "\t", timestr)
             else:
-                print(self.dept, self.num, "\t", self.meetingDays, "\t", self.capacity, "\t", self.time)
+                print(deptstring, self.num, "\t", daystring, "\t", self.capacity, "\t", timestr)
 
 
     """
@@ -93,7 +126,7 @@ class Course:
     def set_field(self, num):
         self.field.append( g.FIELDS[num])
         return
-    
+
     def set_days(self):
         s = str(self.meetingDays)
         days = []
