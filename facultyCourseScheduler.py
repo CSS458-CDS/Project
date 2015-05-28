@@ -207,7 +207,7 @@ def scheduleCourses(courseList, coursesToTeach):
                 coursesToTeach.remove(coursesToTeach[i])
                 return dummyCourse
                 
-    return 666
+    return 000
 
 # Append every course to the lowPrio list        
 def populateLowPrio(lowPrio):
