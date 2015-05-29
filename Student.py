@@ -149,12 +149,10 @@ class Student(object):
         Returns: True if registration is successful, false otherwise
         """
         # this student is able to register for a certain course if
-        # 1.they have taken the prerequisite course
-        # 2.course is not full
-        # 3.no time conflict
-        # 4.No retaking
-        if (course.requirement in self.finishedCourses and
-            course.spots != 0 and self.timeConflict(course) == False and course.num not in self.finishedCourses):
+        # 1.course is not full
+        # 2.no time conflict
+        # 3.No retaking
+        if ( course.spots != 0 and self.timeConflict(course) == False and course.num not in self.finishedCourses):
             # student tries to register capstone
             if(self.ready_for_capstone() and course.num == 497):
                 course.spots -= 1

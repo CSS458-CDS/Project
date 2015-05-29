@@ -52,23 +52,25 @@ def registration(students, courses):
     Returns: None
     """
     # register junior
+    # print out prompt line
+    print('Registration Period Starts:')
     for i in range(0,len(students[0])):
         # random number of class
         numberOfClass = N.random.randint(1,MAX_CLASS_PER_QUARTER + 1)
         #register all the possible core classes
         for j in range(0,len(courses)):
             if(courses[j].core == True):
-                students[i].register(courses[j])
+                students[0][i].register(courses[j])
         # if they register more cores than they can register
-        if(len(students[i].currentCourses) >= numberOfClass):
-            students[i].currentCourses = students[i].currentCourses[:numberOfClass + 1]
+        if(len(students[0][i].currentCourses) >= numberOfClass):
+            students[0][i].currentCourses = students[0][i].currentCourses[:numberOfClass + 1]
         # fill the rest with electives
         else:
-            for j in range (0, (numberOfClass - len(students[i].currentCourses))):
+            for j in range (0, (numberOfClass - len(students[0][i].currentCourses))):
                 keepLooping = True
                 while(keepLooping):
                     index = N.random.randin(0,len(courses))
-                    if(courses[index].elective == True and students[i].register(courses[index]) == True):
+                    if(courses[index].elective == True and students[0][i].register(courses[index]) == True):
                         keepLooping = False
                     else:
                         keepLooping = True
@@ -77,25 +79,47 @@ def registration(students, courses):
         # random number of class
         numberOfClass = N.random.randint(1,MAX_CLASS_PER_QUARTER + 1)
         #register for capstone
+        #if they are ready
+        if (students[1][i].ready_for_capstone() == True):
+            for j in range(0,len(courses)):
+                if(courses[j].num == 497):
+                    students[1][i].register(courses[j])
         #register all the possible core classes
         for j in range(0,len(courses)):
             if(courses[j].core == True):
-                students[i].register(courses[j])
+                students[1][i].register(courses[j])
         # if they register more cores than they can register
-        if(len(students[i].currentCourses) >= numberOfClass):
-            students[i].currentCourses = students[i].currentCourses[:numberOfClass + 1]
+        if(len(students[1][i].currentCourses) >= numberOfClass):
+            students[1][i].currentCourses = students[1][i].currentCourses[:numberOfClass + 1]
         # fill the rest with electives
         else:
-            for j in range (0, (numberOfClass - len(students[i].currentCourses))):
+            for j in range (0, (numberOfClass - len(students[1][i].currentCourses))):
                 keepLooping = True
                 while(keepLooping):
                     index = N.random.randin(0,len(courses))
-                    if(courses[index].elective == True and students[i].register(courses[index]) == True):
+                    if(courses[index].elective == True and students[1][i].register(courses[index]) == True):
                         keepLooping = False
                     else:
                         keepLooping = True
-
-
+    # register master
+    for i in range(0,len(students[2])):
+        numberOfClass = N.random.randint(1,MAX_CLASS_PER_QUARTER + 1)
+        # register 500 level class first
+        for j in range(0,len(courses)):
+            if(courses[j].num > 500):
+                students[2][i].register(courses[j])
+        # if they registered more classes, slice the array
+        if(len(students[2][i].currentCourses) >= numberOfClass):
+            students[2][i].currentCourses = students[2][i].currentCourses[:numberOfClass + 1]
+        else:
+            # register 400 level class
+            for j in range(0,len(courses)):
+                if(courses[j].num > 400 and (courses[j].num < 500)):
+                    students[2][i].register(courses[j])
+            # if they registered more classes, slice the array
+            if(len(students[2][i].currentCourses) >= numberOfClass):
+                students[2][i].currentCourses = students[2][i].currentCourses[:numberOfClass + 1]
+    print('Registration Period Ends:')
 # ======================================================================================================================
 def endOfQuarter(students):
     """
@@ -112,6 +136,7 @@ def endOfQuarter(students):
     """
 
     displayData()
+    # new junior students come in
 # ======================================================================================================================
 def displayData():
     """
