@@ -3,6 +3,7 @@ NUM_OF_JUNIOR = 80
 NUM_OF_SENIOR = 150
 NUM_OF_MASTER = 40
 MAX_CLASS_PER_QUARTER = 4
+RATE_TO_BE_MASTER = 0.1       # Probability of a graduated student to be a master student
 # ======================================================================================================================
 import numpy as N
 from Student import Student
@@ -119,6 +120,7 @@ def registration(students, courses):
             # if they registered more classes, slice the array
             if(len(students[2][i].currentCourses) >= numberOfClass):
                 students[2][i].currentCourses = students[2][i].currentCourses[:numberOfClass + 1]
+    # print end prompt
     print('Registration Period Ends:')
 # ======================================================================================================================
 def endOfQuarter(students):
@@ -134,9 +136,45 @@ def endOfQuarter(students):
                     students[2] is master
     Returns: None
     """
-
+    # students gets their grade
+    print('Grading Period Starts')
+    for i in range(0, 3):
+        for j in range(0, len(students[i])):
+            # for every class they take
+            for k in range(0, len(students[i][j]).currentCourses):
+                # receive a GPA for this course
+                GPA =  N.random.normal(Student.MEAN_GPA,Student.STD)
+                if(GPA > 4.0):
+                    GPA = 4.0
+                elif(GPA < 2.0):
+                    GPA = 2.0
+                #update Cumulative GPA
+                denominator = (len(students[i][j].finishedCourses) + 90 / 5)
+                students[i][j].GPA = (students[i][j].GPA * denominator + GPA) / (denominator + 1)
+                # pass the class only when their GPA >= 2.0
+                if(GPA >= 2.0):
+                    students[i][j].finishedCourses.append(students[i][j].currentCourses[k].num)
+            # clear their current courses
+            students[i][j].currentCourses = []
+            # one quarter pasted
+            students[i][j].quartersSpent += 1
+    print('Grading Period Ends')
+    # students graduate
+    # check all senior students
+    for i in range(0, len(students[1])):
+        if (students[1][i].ready_to_graduate() == True):
+            #remove student from department
+            g.graduated_students.append(students[1].pop(i))
+            if(N.random.rand() < RATE_TO_BE_MASTER):
+                students[2].append(g.graduated_students[-1])
+    # move junior student to senior (spent 4 quarter) if applicable
+    for i in range(0, len(students[0])):
+        if(students[0][i].quartersSpent == 4):
+            # move to senior
+            students[1].append(students[0].pop(i))
     displayData()
     # new junior students come in
+
 # ======================================================================================================================
 def displayData():
     """
@@ -146,16 +184,7 @@ def displayData():
     Parameters: None
     Returns: None
     """
-# ======================================================================================================================
-def moveToJunior(junior,senior):
-    """
-    Description: move junior to senior when the quarter they spend is 4
-    Pre : junior students has been set
-    Post :junior students has been moved
-    Parameters: junior: a list of junior students
-                senior: a list of senior students
-    Returns: None
-    """
+
 # ====================================================main==============================================================
 
 # read classes from file
