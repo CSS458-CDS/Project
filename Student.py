@@ -182,7 +182,7 @@ class Student(object):
         else:
             for i in range(0,len(self.currentCourses) ):
                 # compare with the time
-                if(self.currentCourses[i].time == course.time and self.dayConflict(self.currentCourses[i].day,course.day) == True):
+                if(self.currentCourses[i].time == course.time and self.dayConflict(self.currentCourses[i].meetingDays,course.meetingDays) == True):
                     return True
             return False
 

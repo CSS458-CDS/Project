@@ -4,6 +4,8 @@ NUM_OF_SENIOR = 150
 NUM_OF_MASTER = 40
 MAX_CLASS_PER_QUARTER = 4
 RATE_TO_BE_MASTER = 0.1       # Probability of a graduated student to be a master student
+MEAN_GPA = 3.2
+STD = 0.5
 # ======================================================================================================================
 import numpy as N
 from Student import Student
@@ -30,7 +32,7 @@ def simOneQuarter(students, professors, courses):
     endOfQuarter(students)
     displayData(students, professors, courses)
     # new junior students come in
-    numberOfNew = NUM_OF_JUNIOR/2 +  N.random.randint(0,NUM_OF_JUNIOR/2)
+    numberOfNew = int(NUM_OF_JUNIOR / 2 +  N.random.randint(0,NUM_OF_JUNIOR/2))
     for i in range(0, numberOfNew):
         students[0].append(Student(g.ALL_ELECTIVES))
 # ======================================================================================================================
@@ -60,7 +62,7 @@ def registration(students, courses):
     """
     # register junior
     # print out prompt line
-    print('Registration Period Starts:')
+    print('Registration Period Starts')
     for i in range(0,len(students[0])):
         # random number of class
         numberOfClass = N.random.randint(1,MAX_CLASS_PER_QUARTER + 1)
@@ -76,7 +78,7 @@ def registration(students, courses):
             for j in range (0, (numberOfClass - len(students[0][i].currentCourses))):
                 keepLooping = True
                 while(keepLooping):
-                    index = N.random.randin(0,len(courses))
+                    index = N.random.randint(0,len(courses))
                     if(courses[index].elective == True and students[0][i].register(courses[index]) == True):
                         keepLooping = False
                     else:
@@ -103,7 +105,7 @@ def registration(students, courses):
             for j in range (0, (numberOfClass - len(students[1][i].currentCourses))):
                 keepLooping = True
                 while(keepLooping):
-                    index = N.random.randin(0,len(courses))
+                    index = N.random.randint(0,len(courses))
                     if(courses[index].elective == True and students[1][i].register(courses[index]) == True):
                         keepLooping = False
                     else:
@@ -127,7 +129,7 @@ def registration(students, courses):
             if(len(students[2][i].currentCourses) >= numberOfClass):
                 students[2][i].currentCourses = students[2][i].currentCourses[:numberOfClass + 1]
     # print end prompt
-    print('Registration Period Ends:')
+    print('Registration Period Ends')
 # ======================================================================================================================
 def endOfQuarter(students):
     """
@@ -147,9 +149,9 @@ def endOfQuarter(students):
     for i in range(0, 3):
         for j in range(0, len(students[i])):
             # for every class they take
-            for k in range(0, len(students[i][j]).currentCourses):
+            for k in range(0, len(students[i][j].currentCourses)):
                 # receive a GPA for this course
-                GPA =  N.random.normal(Student.MEAN_GPA,Student.STD)
+                GPA =  N.random.normal(MEAN_GPA,STD)
                 if(GPA > 4.0):
                     GPA = 4.0
                 elif(GPA < 2.0):
@@ -214,9 +216,18 @@ students  = [junior, senior, master]
 # 0 - 3 corresponds to fall, winter, spring summer
 courses = [g.AUTCAT,g.WINCAT,g.SPRCAT,g.SUMCAT]
 # initialize professors
-print(len(g.allFaculty))
-for i in range(0, len(g.allFaculty)):
-    print(g.allFaculty[i],lastName)
+# print(len(g.allFaculty))
+# for i in range(0, len(g.allFaculty)):
+#     print(g.allFaculty[i].lastName)
+professors = []
 # run model for 1 year
 # for i in range(0,4):
-#     simOneQuarter(students, professors, courses[i])
+print('Fall:')
+simOneQuarter(students, professors, courses[0])
+print('Winter:')
+simOneQuarter(students, professors, courses[1])
+print('Spring:')
+simOneQuarter(students, professors, courses[2])
+print('Summer:')
+simOneQuarter(students, professors, courses[3])
+
