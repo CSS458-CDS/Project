@@ -1,4 +1,5 @@
 import sys
+import globals as g
 from faculty import faculty
 
 """
@@ -21,29 +22,30 @@ This course is still WIP. The following areas are still unfinished at the time o
 - Testing - lots of testing
 """
 
+# If using this class from a different class, call driver(), not main().
+# Main includes testing stuff; it won't be touched unless you're running
+# facultyCourseScheduler.py alone.
 def main():
+    
+    print "hi!"
+    
+    listOfFaculty = g.allFaculty
+    
+    driver(listOfFaculty)
+
+def driver(listOfFaculty):
     
     # Listed in order from earliest class to latest class
     coursesToTeach = [332, 478, 432, 107, 337, 343, 342]
     
     schedule = []
     
-    # Build list with 5 faculty members
-    listOfMembers = []
-    newFac1 = faculty("Stark", "Y", 12, 5, ["Programming", "Cybersecurity", "Teaching"])
-    newFac2 = faculty("Rogers", "Y", 12, 5, ["Hardware", "Operating Systems"])
-    newFac3 = faculty("Banner", "Y", 12, 5, ["Scientific Computing"])
-    newFac4 = faculty("Romanoff", "Y", 12, 5, ["Scientific Engineering", "Databases"])
-    newFac5 = faculty("Barton", "Y", 12, 5, ["Programming", "Networking"])
-    
-    listOfMembers.extend((newFac1,newFac2,newFac3,newFac4,newFac5)) # List with 5 faculty members
-    
     # Assign high/med/low priority courses for each faculty member
     while len(coursesToTeach) > 0:
-        for i in range(0, len(listOfMembers)):
-            courseList = prioritizeCourses(listOfMembers[i])
+        for i in range(0, len(listOfFaculty)):
+            courseList = prioritizeCourses(listOfFaculty[i])
             newCourse = scheduleCourses(courseList, coursesToTeach)
-            schedule.append(str(listOfMembers[i].getLastName()) + " is teaching " + str(newCourse))
+            schedule.append(str(listOfFaculty[i].getLastName()) + " is teaching " + str(newCourse))
             
     print (schedule)
 
@@ -282,4 +284,3 @@ def populateLowPrio(lowPrio):
 
 if __name__ == "__main__": # Testing - points to this course's "main" method, so to speak
     sys.exit(main())
-
