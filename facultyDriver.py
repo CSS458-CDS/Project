@@ -28,26 +28,28 @@ def buildFaculty(fileName=g.FACULTY_FILE):
     
     # Build faculty from first readable row to last
     row = 5
-    while ws["A",str(row)] is not None:  # Rows >= 5 in the file have relevant data
-        lastName = ws["A",str(row)].value
+    while ws.cell(row, 1).value is not None:  # Rows >= 5 in the file have relevant data
+        lastName = ws.cell(row, 1).value
         
-        if ws["B",str(row)].value == 'Y':
+        if ws.cell(row, 2).value == 'Y':
             fullTime = 1
         else:
             fullTime = 0
             
-        numClasses = ws["C",str(row)].value + 0.
-        studentsAdvised = ws["D",str(row)].value
+        numClasses = ws.cell(row, 3).value + 0.
+        studentsAdvised = ws.cell(row, 4).value
         
-        expertise = [ws["E",str(row)].value]
+        expertise = [ws.cell(row, 5).value]
 
-        if ws["F"+str(row)].value != None:
-            expertise.append(ws["F"+str(row)].value)
-        if ws["G"+str(row)].value != None:
-            expertise.append(ws["G"+str(row)].value)
-        if ws["F",str(row)].value != None:
-            expertise.append(ws["F",str(row)].value)
-        if ws["G",str(row)].value != None:
-            expertise.append(ws["G",str(row)].value)
+        if ws.cell(row, 6).value != None:
+            expertise.append(ws.cell(row, 6).value)
+        if ws.cell(row, 7).value != None:
+            expertise.append(ws.cell(row, 7).value)
+        if ws.cell(row, 6).value != None:
+            expertise.append(ws.cell(row, 6).value)
+        if ws.cell(row, 7).value != None:
+            expertise.append(ws.cell(row, 7).value)
+            
         g.allFaculty.append(faculty(lastName, fullTime, numClasses, studentsAdvised, expertise))
+        
         row += 1
