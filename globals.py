@@ -19,6 +19,8 @@ CORE_CLASSES = {161, 162, 301, 342, 343, 350, 360, 370, 422, 430}
 
 # a list of graduated students
 graduated_students = []
+# list of all faculty members
+allFaculty = []
 #Course catalog. List of all the courses offered in Autum.
 AUTCAT = []
 #Course catalog. List of all the courses offered in Winter.
