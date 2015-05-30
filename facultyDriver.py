@@ -1,7 +1,7 @@
 """
 This file provides the method to build the faculty.
 """
-import faculty as f
+from faculty import faculty
 import globals as g
 from openpyxl.reader.excel import load_workbook
 
@@ -22,7 +22,7 @@ File format:
     Column G = Expertise 3 (if available)
 """
 def buildFaculty(fileName=g.FACULTY_FILE):
-
+    
     wb = load_workbook(fileName)
     ws = wb.active
     
@@ -45,3 +45,6 @@ def buildFaculty(fileName=g.FACULTY_FILE):
             expertise.append(ws["F"+str(row)].value)
         if ws["G"+str(row)].value != None:
             expertise.append(ws["G"+str(row)].value)
+            
+        global allFaculty
+        allFaculty.append(faculty(lastName, fullTime, numClasses, studentsAdvised, expertise))
