@@ -40,18 +40,14 @@ def buildFaculty(fileName=g.FACULTY_FILE):
         studentsAdvised = ws["D",str(row)].value
         
         expertise = [ws["E",str(row)].value]
-        
-<<<<<<< HEAD
+
         if ws["F"+str(row)].value != None:
             expertise.append(ws["F"+str(row)].value)
         if ws["G"+str(row)].value != None:
             expertise.append(ws["G"+str(row)].value)
-=======
         if ws["F",str(row)].value != None:
             expertise.append(ws["F",str(row)].value)
         if ws["G",str(row)].value != None:
             expertise.append(ws["G",str(row)].value)
-            
->>>>>>> origin/master
         g.allFaculty.append(faculty(lastName, fullTime, numClasses, studentsAdvised, expertise))
         row += 1
