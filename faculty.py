@@ -67,7 +67,7 @@ class faculty:
             st3= "Has taught since " + str(self.hireDate[0]) + "/" + str(self.hireDate[1]) + "/" + str(self.hireDate[2])
             print(st3)
             
-        if self.fullTime == 'Y':
+        if self.fullTime == 1:
             print("full time")
         else:
             print("part time")
@@ -109,12 +109,9 @@ class faculty:
     def setAge(self, newAge):
         self.age = newAge
     
-    # Returns 1 if Y, 0 if N    
+    # returns 1 if full time, 0 if part time
     def getFullTime(self):
-        if self.fullTime == 'Y':
-            return 1
-        else:
-            return 0
+        return self.fullTime
         
     def setTimeTeaching(self, num):
         self.timeTeaching = num
