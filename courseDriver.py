@@ -193,4 +193,4 @@ def print_catalogs():
         i.display(title=True)
     print("-------------------------------------------------------------------")
 
-#print_catalogs()
+print_catalogs()
