@@ -8,6 +8,7 @@ RATE_TO_BE_MASTER = 0.1       # Probability of a graduated student to be a maste
 import numpy as N
 from Student import Student
 import globals as g
+from faculty import faculty
 
 # ======================================================================================================================
 def simOneQuarter(students, professors, courses):
@@ -27,6 +28,11 @@ def simOneQuarter(students, professors, courses):
     scheduleClass(courses, professors)
     registration(students, courses)
     endOfQuarter(students)
+    displayData(students, professors, courses)
+    # new junior students come in
+    numberOfNew = NUM_OF_JUNIOR/2 +  N.random.randint(0,NUM_OF_JUNIOR/2)
+    for i in range(0, numberOfNew):
+        students[0].append(Student(g.ALL_ELECTIVES))
 # ======================================================================================================================
 def scheduleClass(course, professors):
     """
@@ -165,6 +171,7 @@ def endOfQuarter(students):
         if (students[1][i].ready_to_graduate() == True):
             #remove student from department
             g.graduated_students.append(students[1].pop(i))
+            # small chance to become a master student
             if(N.random.rand() < RATE_TO_BE_MASTER):
                 students[2].append(g.graduated_students[-1])
     # move junior student to senior (spent 4 quarter) if applicable
@@ -172,11 +179,8 @@ def endOfQuarter(students):
         if(students[0][i].quartersSpent == 4):
             # move to senior
             students[1].append(students[0].pop(i))
-    displayData()
-    # new junior students come in
-
 # ======================================================================================================================
-def displayData():
+def displayData(students, professors, courses):
     """
     Description: display the data after this quarter
     Pre : Professors , students and courses have been set
@@ -184,6 +188,13 @@ def displayData():
     Parameters: None
     Returns: None
     """
+    print('Number of graduated students after this quarter:', len(g.graduated_students))
+    print('Current junior students:',len(students[0]))
+    print('Current senior students:',len(students[1]))
+    print('Current master students:',len(students[2]))
+    print('Current total students:',(len(students[0])+len(students[1])+len(students[2])))
+
+
 
 # ====================================================main==============================================================
 
@@ -205,40 +216,6 @@ courses = [g.AUTCAT,g.WINCAT,g.SPRCAT,g.SUMCAT]
 # initialize professors
 professors = []
 
-#print out credit
-# print('junior credit:')
-# for i in range(0,NUM_OF_JUNIOR):
-#     print(junior[i].credit)
-# print('senior credit:')
-# for i in range(0,NUM_OF_SENIOR):
-#     print(senior[i].credit)
-# print('master credit:')
-# for i in range(0,NUM_OF_MASTER):
-#     print(master[i].credit)
-
-#print out GPA
-# print('junior GPA:')
-# for i in range(0,NUM_OF_JUNIOR):
-#     print(round(junior[i].GPA, 1))
-# print('senior GPA:')
-# for i in range(0,NUM_OF_SENIOR):
-#     print(round(senior[i].GPA,1))
-# print('master GPA:')
-# for i in range(0,NUM_OF_MASTER):
-#     print(round(master[i].GPA, 1))
-
-#print out finished courses
-print('junior class:')
-for i in range(0,NUM_OF_JUNIOR):
-    print(junior[i].finishedCourses)
-print('senior class:')
-for i in range(0,NUM_OF_SENIOR):
-    print(senior[i].finishedCourses)
-print('master class:')
-for i in range(0,NUM_OF_MASTER):
-    print(master[i].finishedCourses)
-
-
 # run model for 1 year
-# for i in range(0,4):
-#     simOneQuarter(students, professors, courses[i])
+for i in range(0,4):
+    simOneQuarter(students, professors, courses[i])
