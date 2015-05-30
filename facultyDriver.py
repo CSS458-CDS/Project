@@ -31,7 +31,7 @@ def buildFaculty(fileName=g.FACULTY_FILE):
     while ws["A",str(row)] is not None:  # Rows >= 5 in the file have relevant data
         lastName = ws["A",str(row)].value
         
-        if ws["B"+str(row)].value == 'Y':
+        if ws["B",str(row)].value == 'Y':
             fullTime = 1
         else:
             fullTime = 0
