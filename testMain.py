@@ -76,13 +76,8 @@ def registration(students, courses):
         # fill the rest with electives
         else:
             for j in range (0, (numberOfClass - len(students[0][i].currentCourses))):
-                keepLooping = True
-                while(keepLooping):
-                    index = N.random.randint(0,len(courses))
-                    if(courses[index].elective == True and students[0][i].register(courses[index]) == True):
-                        keepLooping = False
-                    else:
-                        keepLooping = True
+                index = N.random.randint(0,len(courses))
+                students[0][i].register(courses[index])
     # register senior
     for i in range(0,len(students[1])):
         # random number of class
@@ -103,13 +98,9 @@ def registration(students, courses):
         # fill the rest with electives
         else:
             for j in range (0, (numberOfClass - len(students[1][i].currentCourses))):
-                keepLooping = True
-                while(keepLooping):
                     index = N.random.randint(0,len(courses))
-                    if(courses[index].elective == True and students[1][i].register(courses[index]) == True):
-                        keepLooping = False
-                    else:
-                        keepLooping = True
+                    students[1][i].register(courses[index])
+
     # register master
     for i in range(0,len(students[2])):
         numberOfClass = N.random.randint(1,MAX_CLASS_PER_QUARTER + 1)
@@ -170,18 +161,22 @@ def endOfQuarter(students):
     print('Grading Period Ends')
     # students graduate
     # check all senior students
-    for i in range(0, len(students[1])):
+    i = 0
+    while(i < len(students[1])):
         if (students[1][i].ready_to_graduate() == True):
             #remove student from department
             g.graduated_students.append(students[1].pop(i))
             # small chance to become a master student
             if(N.random.rand() < RATE_TO_BE_MASTER):
                 students[2].append(g.graduated_students[-1])
+        i += 1
     # move junior student to senior (spent 4 quarter) if applicable
-    for i in range(0, len(students[0])):
+    i = 0
+    while(i < len(students[0])):
         if(students[0][i].quartersSpent == 4):
             # move to senior
             students[1].append(students[0].pop(i))
+        i += 1
 # ======================================================================================================================
 def displayData(students, professors, courses):
     """
@@ -196,8 +191,6 @@ def displayData(students, professors, courses):
     print('Current senior students:',len(students[1]))
     print('Current master students:',len(students[2]))
     print('Current total students:',(len(students[0])+len(students[1])+len(students[2])))
-
-
 
 # ====================================================main==============================================================
 
