@@ -25,7 +25,7 @@ def simOneQuarter(students, professors, courses):
                 courses: a list of course objects
     Returns: None
     """
-    scheduleClass(courses, professors)
+    #scheduleClass(courses, professors)
     registration(students, courses)
     endOfQuarter(students)
     displayData(students, professors, courses)
@@ -213,9 +213,10 @@ for i in range(0,NUM_OF_MASTER):
 students  = [junior, senior, master]
 # 0 - 3 corresponds to fall, winter, spring summer
 courses = [g.AUTCAT,g.WINCAT,g.SPRCAT,g.SUMCAT]
-# initialize professors
-professors = []
-
+# initialize professors]
+print(len(g.allFaculty))
+for i in range(0, len(g.allFaculty)):
+    print(g.allFaculty[i],lastName)
 # run model for 1 year
-for i in range(0,4):
-    simOneQuarter(students, professors, courses[i])
+# for i in range(0,4):
+#     simOneQuarter(students, professors, courses[i])
