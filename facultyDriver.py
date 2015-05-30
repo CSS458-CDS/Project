@@ -45,6 +45,5 @@ def buildFaculty(fileName=g.FACULTY_FILE):
             expertise.append(ws["F"+str(row)].value)
         if ws["G"+str(row)].value != None:
             expertise.append(ws["G"+str(row)].value)
-            
         g.allFaculty.append(faculty(lastName, fullTime, numClasses, studentsAdvised, expertise))
         row += 1
