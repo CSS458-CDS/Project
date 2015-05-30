@@ -27,16 +27,18 @@ This course is still WIP. The following areas are still unfinished at the time o
 # facultyCourseScheduler.py alone.
 def main():
     
-    print "hi!"
-    
     listOfFaculty = g.allFaculty
     
-    driver(listOfFaculty)
+    dumAUTCAT = g.AUTCAT
+    driver(listOfFaculty, dumAUTCAT)
+    dumWINCAT = g.WINCAT
+    driver(listOfFaculty, dumWINCAT)
+    dumSPRCAT = g.SPRCAT
+    driver(listOfFaculty, dumSPRCAT)
+    dumSUMCAT = g.SUMCAT
+    driver(listOfFaculty, dumSUMCAT)
 
-def driver(listOfFaculty):
-    
-    # Listed in order from earliest class to latest class
-    coursesToTeach = [332, 478, 432, 107, 337, 343, 342]
+def driver(listOfFaculty, coursesToTeach):
     
     schedule = []
     
@@ -45,7 +47,7 @@ def driver(listOfFaculty):
         for i in range(0, len(listOfFaculty)):
             courseList = prioritizeCourses(listOfFaculty[i])
             newCourse = scheduleCourses(courseList, coursesToTeach)
-            schedule.append(str(listOfFaculty[i].getLastName()) + " is teaching " + str(newCourse))
+            schedule.append([listOfFaculty[i],newCourse)
             
     print (schedule)
 
@@ -186,27 +188,27 @@ def prioritizeCourses(fac):
             if courseList[i] in lowPrio:
                 lowPrio.remove(courseList[i])
             
-    print ("High priority courses: ", str(highPrio))
-    print ("Medium priority courses: ", str(medPrio))
-    print ("Low priority courses: ", str(lowPrio))
+    #print ("High priority courses: ", str(highPrio))
+    #print ("Medium priority courses: ", str(medPrio))
+    #print ("Low priority courses: ", str(lowPrio))
     
     return [lowPrio, medPrio, highPrio]
     
 def scheduleCourses(courseList, coursesToTeach):
     for i in range (0, len(coursesToTeach)):
-        for j in range(0, len(courseList[2])):
-            if coursesToTeach[i] == courseList[2][j] and coursesToTeach[i] != None \
+        for j in range(0, len(courseList[2])): # High priority search
+            if coursesToTeach[i].getCourseNum() == courseList[2][j] and coursesToTeach[i].getCourseNum() != None \
             and courseList[2][j] != None:
                 dummyCourse = coursesToTeach[i]
-                coursesToTeach.remove(coursesToTeach[i])
+                coursesToTeach.remove(dummyCourse)
                 return dummyCourse
                 
     for i in range (0, len(coursesToTeach)):
-        for j in range(0, len(courseList[1])):
-            if coursesToTeach[i] == courseList[1][j] and coursesToTeach[i] != None \
+        for j in range(0, len(courseList[1])): # Medium priority search
+            if coursesToTeach[i].getCourseNum() == courseList[1][j] and coursesToTeach[i].getCourseNum() != None \
                 and courseList[1][j] != None:
                 dummyCourse = coursesToTeach[i]
-                coursesToTeach.remove(coursesToTeach[i])
+                coursesToTeach.remove(dummyCourse)
                 return dummyCourse
                 
     return 000

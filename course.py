@@ -376,8 +376,9 @@ class Course:
             print("No title could be found for:", self.num, end="\t")
             self.display()
 
-
-
+    # Return course number
+    def getCourseNum(self):
+        return self.num
 
 
 
