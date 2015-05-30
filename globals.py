@@ -38,6 +38,8 @@ FIELDS = {0:"Programming", 1:"Scientific Computing", 2:"Software Engineering",
         11:"Graphics", 12:"Any"}
 def initialize_globals():
     import courseDriver as cd
+    import facultyDriver as fd
+    fd.buildFaculty()
     cd.buildClasses()
     get_all_electives()
 
