@@ -1,5 +1,10 @@
 #Name of the file used for building course catalogs
 COURSE_FILE = "list_of_classes.xlsx"
+#File with very few core classes
+#COURSE_FILE = "No core classes.xlsx"
+#File with very few electives
+#COURSE_FILE = "just core classes.xlsx"
+#Name of file used for creating faculty
 FACULTY_FILE = "list_of_faculty.xlsx"
 #First line that contains course data in course file
 COURSE_FILE_FIRST = 9
