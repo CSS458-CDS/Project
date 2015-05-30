@@ -29,6 +29,13 @@ WINCAT = []
 SPRCAT = []
 #Course catalog. List of all the courses offered in Summer.
 SUMCAT = []
+
+# Schedules for each of the quarters. Each element is a list of [faculty class, course class]
+AUTSCHED = []
+WINSCHED = [] 
+SPRSCHED = []
+SUMSCHED = []
+
 #elective Course catalog. List of all the elective courses offered in a year, courses are represented as int
 ALL_ELECTIVES = []
 #Dictionary to get the field from a number
