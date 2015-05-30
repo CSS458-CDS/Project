@@ -28,23 +28,23 @@ def buildFaculty(fileName=g.FACULTY_FILE):
     
     # Build faculty from first readable row to last
     row = 5
-    while ws["A"+str(row)] is not None:  # Rows >= 5 in the file have relevant data
-        lastName = ws["A"+str(row)].value
+    while ws["A",str(row)] is not None:  # Rows >= 5 in the file have relevant data
+        lastName = ws["A",str(row)].value
         
         if ws["B"+str(row)].value == 'Y':
             fullTime = 1
         else:
             fullTime = 0
             
-        numClasses = ws["C"+str(row)].value + 0.
-        studentsAdvised = ws["D"+str(row)].value
+        numClasses = ws["C",str(row)].value + 0.
+        studentsAdvised = ws["D",str(row)].value
         
-        expertise = [ws["E"+str(row)].value]
+        expertise = [ws["E",str(row)].value]
         
-        if ws["F"+str(row)].value != None:
-            expertise.append(ws["F"+str(row)].value)
-        if ws["G"+str(row)].value != None:
-            expertise.append(ws["G"+str(row)].value)
+        if ws["F",str(row)].value != None:
+            expertise.append(ws["F",str(row)].value)
+        if ws["G",str(row)].value != None:
+            expertise.append(ws["G",str(row)].value)
             
         g.allFaculty.append(faculty(lastName, fullTime, numClasses, studentsAdvised, expertise))
         row += 1
