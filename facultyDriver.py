@@ -47,3 +47,4 @@ def buildFaculty(fileName=g.FACULTY_FILE):
             expertise.append(ws["G"+str(row)].value)
             
         g.allFaculty.append(faculty(lastName, fullTime, numClasses, studentsAdvised, expertise))
+        row += 1
