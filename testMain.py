@@ -32,7 +32,7 @@ def simOneQuarter(students, professors, courses):
     endOfQuarter(students)
     displayData(students, professors, courses)
     # new junior students come in
-    numberOfNew = int(NUM_OF_JUNIOR / 2 +  N.random.randint(0,NUM_OF_JUNIOR/2))
+    numberOfNew = int(NUM_OF_JUNIOR / 4 +  N.random.randint(0,NUM_OF_JUNIOR/2))
     for i in range(0, numberOfNew):
         students[0].append(Student(g.ALL_ELECTIVES))
 # ======================================================================================================================
@@ -162,6 +162,7 @@ def endOfQuarter(students):
                 # pass the class only when their GPA >= 2.0
                 if(GPA >= 2.0):
                     students[i][j].finishedCourses.append(students[i][j].currentCourses[k].num)
+                    students[i][j].credit += 5
             # clear their current courses
             students[i][j].currentCourses = []
             # one quarter pasted
@@ -215,6 +216,10 @@ for i in range(0,NUM_OF_MASTER):
 students  = [junior, senior, master]
 # 0 - 3 corresponds to fall, winter, spring summer
 courses = [g.AUTCAT,g.WINCAT,g.SPRCAT,g.SUMCAT]
+
+# for i in range(0, len(courses[1])):
+#         print(courses[1][i].num)
+
 # initialize professors
 # print(len(g.allFaculty))
 # for i in range(0, len(g.allFaculty)):
@@ -228,6 +233,8 @@ print('Winter:')
 simOneQuarter(students, professors, courses[1])
 print('Spring:')
 simOneQuarter(students, professors, courses[2])
+# for i in range(0, len(students[1])):
+#     print(students[1][i].finishedCourses)
 print('Summer:')
 simOneQuarter(students, professors, courses[3])
 
