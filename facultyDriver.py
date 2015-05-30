@@ -46,5 +46,4 @@ def buildFaculty(fileName=g.FACULTY_FILE):
         if ws["G"+str(row)].value != None:
             expertise.append(ws["G"+str(row)].value)
             
-        global allFaculty
-        allFaculty.append(faculty(lastName, fullTime, numClasses, studentsAdvised, expertise))
+        g.allFaculty.append(faculty(lastName, fullTime, numClasses, studentsAdvised, expertise))
