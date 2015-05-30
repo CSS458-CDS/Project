@@ -88,6 +88,11 @@ def make_one_course(ws, startColumn, startRow):
     dayCol = chr(ord(startColumn)+2)
     capCol = chr(ord(startColumn)+3)
     num = ws[numCol+str(row)].value
+    if num == 497:
+        result = c.Course(courseNum=num, time="-1", day="-1", cap=0)
+        result.dept = "CSS"
+        return result
+
     timestr = str(ws[timeCol+str(row)].value)
     if "-" in timestr:
         timestr = timestr[0:timestr.index("-")]
