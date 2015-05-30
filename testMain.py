@@ -169,14 +169,18 @@ def endOfQuarter(students):
             # small chance to become a master student
             if(N.random.rand() < RATE_TO_BE_MASTER):
                 students[2].append(g.graduated_students[-1])
-        i += 1
+        else:
+            i += 1
     # move junior student to senior (spent 4 quarter) if applicable
     i = 0
+
     while(i < len(students[0])):
-        if(students[0][i].quartersSpent == 4):
             # move to senior
-            students[1].append(students[0].pop(i))
-        i += 1
+            if(students[0][i].quartersSpent == 4):
+                students[1].append(students[0].pop(i))
+            else:
+                i += 1
+
 # ======================================================================================================================
 def displayData(students, professors, courses):
     """
@@ -226,8 +230,6 @@ print('Winter:')
 simOneQuarter(students, professors, courses[1])
 print('Spring:')
 simOneQuarter(students, professors, courses[2])
-# for i in range(0, len(students[1])):
-#     print(students[1][i].finishedCourses)
 print('Summer:')
 simOneQuarter(students, professors, courses[3])
 
