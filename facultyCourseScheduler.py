@@ -30,26 +30,32 @@ def main():
     listOfFaculty = g.allFaculty
     
     dumAUTCAT = g.AUTCAT
-    driver(listOfFaculty, dumAUTCAT)
+    driver(listOfFaculty, dumAUTCAT, 0)
     dumWINCAT = g.WINCAT
-    driver(listOfFaculty, dumWINCAT)
+    driver(listOfFaculty, dumWINCAT, 1)
     dumSPRCAT = g.SPRCAT
-    driver(listOfFaculty, dumSPRCAT)
+    driver(listOfFaculty, dumSPRCAT, 2)
     dumSUMCAT = g.SUMCAT
-    driver(listOfFaculty, dumSUMCAT)
+    driver(listOfFaculty, dumSUMCAT, 3)
 
-def driver(listOfFaculty, coursesToTeach):
-    
-    schedule = []
+# quarter = 0,1,2,3 depending on what quarter is currently being worked with.
+def driver(listOfFaculty, coursesToTeach, quarter):
     
     # Assign high/med/low priority courses for each faculty member
     while len(coursesToTeach) > 0:
         for i in range(0, len(listOfFaculty)):
             courseList = prioritizeCourses(listOfFaculty[i])
             newCourse = scheduleCourses(courseList, coursesToTeach)
-            schedule.append([listOfFaculty[i],newCourse)
             
-    print (schedule)
+            # Figuring out which quarter schedule to add to
+            if quarter == 0:
+                g.AUTSCHED.append([listOfFaculty[i],newCourse])
+            elif quarter == 1:
+                g.WINSCHED.append([listOfFaculty[i],newCourse])
+            elif quarter == 2:
+                g.SPRSCHED.append([listOfFaculty[i],newCourse])
+            else:
+                g.SUMSCHED.append([listOfFaculty[i],newCourse])
 
 def prioritizeCourses(fac):
     highPrio = [] # Designates courses that the faculty member is exceptional in
