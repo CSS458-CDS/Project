@@ -88,8 +88,9 @@ def make_one_course(ws, startColumn, startRow):
     dayCol = chr(ord(startColumn)+2)
     capCol = chr(ord(startColumn)+3)
     num = ws[numCol+str(row)].value
+    #Handle capstone
     if num == 497:
-        result = c.Course(courseNum=num, time="-1", day="-1", cap=0)
+        result = c.Course(courseNum=num, time="-1", day="-1", cap=g.ADVISED_STUDENTS_PER_QUARTER)
         result.dept = "CSS"
         return result
 
@@ -197,5 +198,5 @@ def print_catalogs():
     for i in g.SPRCAT:
         i.display(title=True)
     print("-------------------------------------------------------------------")
-
+#Test that the catalogs were built correctly
 #print_catalogs()
