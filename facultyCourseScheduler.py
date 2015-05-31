@@ -40,22 +40,29 @@ def main():
 
 # quarter = 0,1,2,3 depending on what quarter is currently being worked with.
 def buildSchedule(listOfFaculty, coursesToTeach, quarter):
+    for i in range(0, len(listOfFaculty)):
+        listOfFaculty.setCurrentlyTeaching(0)
     
     # Assign high/med/low priority courses for each faculty member
     while len(coursesToTeach) > 0:
         for i in range(0, len(listOfFaculty)):
-            courseList = prioritizeCourses(listOfFaculty[i], quarter)
-            newCourse = scheduleCourses(courseList, coursesToTeach)
-            
-            # Figuring out which quarter schedule to add to
-            if quarter == 0:
-                g.AUTSCHED.append([listOfFaculty[i],newCourse])
-            elif quarter == 1:
-                g.WINSCHED.append([listOfFaculty[i],newCourse])
-            elif quarter == 2:
-                g.SPRSCHED.append([listOfFaculty[i],newCourse])
-            else:
-                g.SUMSCHED.append([listOfFaculty[i],newCourse])
+            if listOfFaculty[i].getCurrentlyTeaching() < listOfFaculty[i].getNumClasses():
+                courseList = prioritizeCourses(listOfFaculty[i], quarter)
+                newCourse = scheduleCourses(courseList, coursesToTeach)
+                
+                # Figuring out which quarter schedule to add to
+                if quarter == 0 and newCourse != 000:
+                    g.AUTSCHED.append([listOfFaculty[i],newCourse])
+                    listOfFaculty[i].setCurrentlyTeaching(listOfFaculty[i].getCurrentlyTeaching() + 1)
+                elif quarter == 1 and newCourse != 000:
+                    g.WINSCHED.append([listOfFaculty[i],newCourse])
+                    listOfFaculty[i].setCurrentlyTeaching(listOfFaculty[i].getCurrentlyTeaching() + 1)
+                elif quarter == 2 and newCourse != 000:
+                    g.SPRSCHED.append([listOfFaculty[i],newCourse])
+                    listOfFaculty[i].setCurrentlyTeaching(listOfFaculty[i].getCurrentlyTeaching() + 1)
+                elif quarter == 3 and newCourse != 000:
+                    g.SUMSCHED.append([listOfFaculty[i],newCourse])
+                    listOfFaculty[i].setCurrentlyTeaching(listOfFaculty[i].getCurrentlyTeaching() + 1)
 
 def prioritizeCourses(fac, quarter):
     highPrio = [] # Designates courses that the faculty member is exceptional in
