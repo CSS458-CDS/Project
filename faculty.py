@@ -34,6 +34,7 @@ class faculty:
         
         self.fullTime = fullTimeStatus 
         self.numClasses = numClassesTaught + 0.
+        self.currentlyTeaching = None
         self.currentCourses = [] # List of currently taught courses
         self.studentsAdvised = numStudentsAdvised
         self.expertise = expertiseList
@@ -133,3 +134,9 @@ class faculty:
         
     def setHireDate(self, newHireDate):
         self.hireDate = newHireDate
+        
+    def setCurrentlyTeaching(self, num):
+        self.currentlyTeaching = num
+        
+    def getCurrentlyTeaching(self):
+        return self.currentlyTeaching
