@@ -53,3 +53,6 @@ def buildFaculty(fileName=g.FACULTY_FILE):
         g.allFaculty.append(faculty(lastName, fullTime, numClasses, studentsAdvised, expertise))
         
         row += 1
+    g.ADVISED_STUDENTS_PER_QUARTER = 0
+    for i in g.allFaculty:
+        g.ADVISED_STUDENTS_PER_QUARTER += i.studentsAdvised
