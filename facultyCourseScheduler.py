@@ -29,40 +29,31 @@ def main():
     
     listOfFaculty = g.allFaculty
     
-    dumAUTCAT = g.AUTCAT
-    buildSchedule(listOfFaculty, dumAUTCAT, 0)
-    dumWINCAT = g.WINCAT
-    buildSchedule(listOfFaculty, dumWINCAT, 1)
-    dumSPRCAT = g.SPRCAT
-    buildSchedule(listOfFaculty, dumSPRCAT, 2)
-    dumSUMCAT = g.SUMCAT
-    buildSchedule(listOfFaculty, dumSUMCAT, 3)
+    buildSchedule(listOfFaculty, g.AUTCAT, 0)
+    buildSchedule(listOfFaculty, g.WINCAT, 1)
+    buildSchedule(listOfFaculty, g.SPRCAT, 2)
+    buildSchedule(listOfFaculty, g.SUMCAT, 3)
 
 # quarter = 0,1,2,3 depending on what quarter is currently being worked with.
 def buildSchedule(listOfFaculty, coursesToTeach, quarter):
     for i in range(0, len(listOfFaculty)):
         listOfFaculty.setCurrentlyTeaching(0)
     
+    steps = 0
+    
     # Assign high/med/low priority courses for each faculty member
-    while len(coursesToTeach) > 0:
+    while steps < len(coursesToTeach):
         for i in range(0, len(listOfFaculty)):
             if listOfFaculty[i].getCurrentlyTeaching() < listOfFaculty[i].getNumClasses():
                 courseList = prioritizeCourses(listOfFaculty[i], quarter)
-                newCourse = scheduleCourses(courseList, coursesToTeach)
+                newCourse = scheduleCourses(listOfFaculty[i], courseList, coursesToTeach, quarter)
                 
-                # Figuring out which quarter schedule to add to
-                if quarter == 0 and newCourse != 000:
-                    g.AUTSCHED.append([listOfFaculty[i],newCourse])
+                # Was a faculty assigned to a course? If so, increment currentlyTeaching for faculty
+                if newCourse != 000:
                     listOfFaculty[i].setCurrentlyTeaching(listOfFaculty[i].getCurrentlyTeaching() + 1)
-                elif quarter == 1 and newCourse != 000:
-                    g.WINSCHED.append([listOfFaculty[i],newCourse])
-                    listOfFaculty[i].setCurrentlyTeaching(listOfFaculty[i].getCurrentlyTeaching() + 1)
-                elif quarter == 2 and newCourse != 000:
-                    g.SPRSCHED.append([listOfFaculty[i],newCourse])
-                    listOfFaculty[i].setCurrentlyTeaching(listOfFaculty[i].getCurrentlyTeaching() + 1)
-                elif quarter == 3 and newCourse != 000:
-                    g.SUMSCHED.append([listOfFaculty[i],newCourse])
-                    listOfFaculty[i].setCurrentlyTeaching(listOfFaculty[i].getCurrentlyTeaching() + 1)
+                    
+        if newCourse != 000:
+            steps += 1
 
 def prioritizeCourses(fac, quarter):
     highPrio = [] # Designates courses that the faculty member is exceptional in
@@ -159,22 +150,20 @@ def prioritizeCourses(fac, quarter):
 
     return [lowPrio, medPrio, highPrio]
     
-def scheduleCourses(courseList, coursesToTeach):
+def scheduleCourses(curFac, courseList, coursesToTeach, quarter):
     for i in range (0, len(coursesToTeach)):
         for j in range(0, len(courseList[2])): # High priority search
             if coursesToTeach[i].getCourseNum() == courseList[2][j] and coursesToTeach[i].getCourseNum() != None \
             and courseList[2][j] != None:
-                dummyCourse = coursesToTeach[i]
-                coursesToTeach.remove(dummyCourse)
-                return dummyCourse
+                coursesToTeach[i].setTaughtBy(curFac)
+                return coursesToTeach[i].getCourseNum()
                 
     for i in range (0, len(coursesToTeach)):
         for j in range(0, len(courseList[1])): # Medium priority search
             if coursesToTeach[i].getCourseNum() == courseList[1][j] and coursesToTeach[i].getCourseNum() != None \
                 and courseList[1][j] != None:
-                dummyCourse = coursesToTeach[i]
-                coursesToTeach.remove(dummyCourse)
-                return dummyCourse
+                coursesToTeach[i].setTaughtBy(curFac)
+                return coursesToTeach[i].getCourseNum()
                 
     return 000
 
