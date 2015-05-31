@@ -1,11 +1,8 @@
-#Name of the file used for building course catalogs
-COURSE_FILE = "list_of_classes.xlsx"
-#File with very few core classes
-#COURSE_FILE = "No core classes.xlsx"
-#File with very few electives
-#COURSE_FILE = "just core classes.xlsx"
+#==================ADJUSTABLE VARIABLES===============
 #Name of file used for creating faculty
 FACULTY_FILE = "list_of_faculty.xlsx"
+#Name of the file used for building course catalogs
+COURSE_FILE = "list_of_classes.xlsx"
 #First line that contains course data in course file
 COURSE_FILE_FIRST = 9
 #Last Line of relevant information in course file
@@ -20,8 +17,16 @@ CORE_CLASSES = {161, 162, 301, 342, 343, 350, 360, 370, 422, 430}
 INITIAL_STUDENTS = 270
 #Juniors admitted into the CSS Program per quarter
 ADMITTED_JUNIORS_PER_QUARTER = 40
+
+#=============================================================
 NUM_GRADUATED = 0
 # variable for stats
+
+
+#File with very few core classes
+#COURSE_FILE = "No core classes.xlsx"
+#File with very few electives
+#COURSE_FILE = "just core classes.xlsx"
 # a list of graduated students
 student_graduated_quarter = []
 student_population_quarter = []
