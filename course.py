@@ -390,6 +390,9 @@ class Course:
     # Return field
     def getFieldList(self):
         return self.field
-
+    
+    # Set the faculty member who teaches the course
+    def setTaughtBy(self, newFac):
+        self.taughtBy = newFac
 
 
