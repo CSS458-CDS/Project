@@ -30,21 +30,21 @@ def main():
     listOfFaculty = g.allFaculty
     
     dumAUTCAT = g.AUTCAT
-    driver(listOfFaculty, dumAUTCAT, 0)
+    buildSchedule(listOfFaculty, dumAUTCAT, 0)
     dumWINCAT = g.WINCAT
-    driver(listOfFaculty, dumWINCAT, 1)
+    buildSchedule(listOfFaculty, dumWINCAT, 1)
     dumSPRCAT = g.SPRCAT
-    driver(listOfFaculty, dumSPRCAT, 2)
+    buildSchedule(listOfFaculty, dumSPRCAT, 2)
     dumSUMCAT = g.SUMCAT
-    driver(listOfFaculty, dumSUMCAT, 3)
+    buildSchedule(listOfFaculty, dumSUMCAT, 3)
 
 # quarter = 0,1,2,3 depending on what quarter is currently being worked with.
-def driver(listOfFaculty, coursesToTeach, quarter):
+def buildSchedule(listOfFaculty, coursesToTeach, quarter):
     
     # Assign high/med/low priority courses for each faculty member
     while len(coursesToTeach) > 0:
         for i in range(0, len(listOfFaculty)):
-            courseList = prioritizeCourses(listOfFaculty[i])
+            courseList = prioritizeCourses(listOfFaculty[i], quarter)
             newCourse = scheduleCourses(courseList, coursesToTeach)
             
             # Figuring out which quarter schedule to add to
@@ -57,7 +57,7 @@ def driver(listOfFaculty, coursesToTeach, quarter):
             else:
                 g.SUMSCHED.append([listOfFaculty[i],newCourse])
 
-def prioritizeCourses(fac):
+def prioritizeCourses(fac, quarter):
     highPrio = [] # Designates courses that the faculty member is exceptional in
     medPrio = [] # Designates courses that the faculty member can teach
     lowPrio = [] # Designates courses that the faculty member should not teach or
@@ -65,139 +65,91 @@ def prioritizeCourses(fac):
     
     populateLowPrio(lowPrio)
     
-    # Below, we deal with specialties of narrower focus; we put these in high
-    # priority immediately.   
+    listOfCatalogs = [g.AUTCAT, g.WINCAT, g.SPRCAT, g.SUMCAT]
     
-    # Format:
-    # courseList = all courses relevant to the field
-    # Add these courses to high priority, remove from medium and low 
-    if "Teaching" in fac.getExpertise():
-        courseList = [295]
-        
-        for i in range(len(courseList)):
-            if courseList[i] not in highPrio:
-                highPrio.append(courseList[i])
-                
-        if courseList[i] in medPrio:
-            medPrio.remove(courseList[i])
-        elif courseList[i] in lowPrio:
-            lowPrio.remove(courseList[i])
-            
-    if "Databases" in fac.getExpertise():
-        courseList = [478]
-        
-        for i in range(len(courseList)):
-            if courseList[i] not in highPrio:
-                highPrio.append(courseList[i])
-                
-        if courseList[i] in medPrio:
-            medPrio.remove(courseList[i])
-        elif courseList[i] in lowPrio:
-            lowPrio.remove(courseList[i])
-            
-    if "Writing" in fac.getExpertise():
-        courseList = [301,411]
-        
-        for i in range(len(courseList)):
-            if courseList[i] not in highPrio:
-                highPrio.append(courseList[i])
-                
-        if courseList[i] in medPrio:
-            medPrio.remove(courseList[i])
-        elif courseList[i] in lowPrio:
-            lowPrio.remove(courseList[i])
-            
-    if "Networking" in fac.getExpertise():
-        courseList = [432,537,538]
-        
-        for i in range(len(courseList)):
-            if courseList[i] not in highPrio:
-                highPrio.append(courseList[i])
-                
-        if courseList[i] in medPrio:
-            medPrio.remove(courseList[i])
-        elif courseList[i] in lowPrio:
-            lowPrio.remove(courseList[i])
-        
-    if "Hardware" in fac.getExpertise():
-        courseList = [225,421,422,427,428]
-        
-        for i in range(len(courseList)):
-            if courseList[i] not in highPrio:
-                highPrio.append(courseList[i])
-                
-        if courseList[i] in medPrio:
-            medPrio.remove(courseList[i])
-        elif courseList[i] in lowPrio:
-            lowPrio.remove(courseList[i])
-        
-    if "Operating Systems" in fac.getExpertise():
-        courseList = [421,427,428, 430, 448]
-        
-        for i in range(len(courseList)):
-            if courseList[i] not in highPrio:
-                highPrio.append(courseList[i])
-                
-        if courseList[i] in medPrio:
-            medPrio.remove(courseList[i])
-        elif courseList[i] in lowPrio:
-            lowPrio.remove(courseList[i])
-            
-    if "Cybersecurity" in fac.getExpertise():
-        courseList = [337,415,432,514,517,519,527,537,538,577,578,579]
-        
-        for i in range(len(courseList)):
-            if courseList[i] not in highPrio:
-                highPrio.append(courseList[i])
-                
-            if courseList[i] in medPrio:
-                medPrio.remove(courseList[i])
-            elif courseList[i] in lowPrio:
-                lowPrio.remove(courseList[i])
-            
-    # courseList = all courses relevant to the field
-    if "Programming" in fac.getExpertise():
-        courseList = [107,161,162,332,341,342,343,360,385,421,422,427,428,430,432,\
-                    448,455,458,474,475,501,502,503,506,507,508,533,553,555,565,\
-                    566,572,577]
-                    
-        for i in range(len(courseList)):
-            if courseList[i] not in medPrio:
-                medPrio.append(courseList[i])
-            
-            if courseList[i] in lowPrio:
-                lowPrio.remove(courseList[i])
-                
-    if "Scientific Computing" in fac.getExpertise():
-        courseList = [107,161,162,211,225,290,332,337,341,342,343,350,360,370,371,\
-                    385,411,421,422,427,428,430,432,434,455,458,475,480,490,495,\
-                    496,497,498,499,501,502,503,506,507,508,517,533,537,552,553,\
-                    555,565,566,577,590]
-                    
-        for i in range(len(courseList)):
-            if courseList[i] not in medPrio:
-                medPrio.append(courseList[i])
-            
-            if courseList[i] in lowPrio:
-                lowPrio.remove(courseList[i])
-                
-    if "Scientific Engineering" in fac.getExpertise():
-        courseList = [107,161,162,211,225,290,332,337,341,342,343,350,360,370,371,\
-                    385,411,421,422,427,428,430,432,434,455,458,475,480,490,495,\
-                    496,497,498,499,501,502,503,506,507,508,517,533,537,552,553,\
-                    555,565,566,577,590]
-                    
-        for i in range(len(courseList)):
-            if courseList[i] not in medPrio:
-                medPrio.append(courseList[i])
-            
-            if courseList[i] in lowPrio:
-                lowPrio.remove(courseList[i])
-            
-    #print ("High priority courses: ", str(highPrio))
-    #print ("Medium priority courses: ", str(medPrio))
-    #print ("Low priority courses: ", str(lowPrio))
-    
+    # 1. Loop through every course in that quarter's catalog
+    # 2. Check if that course's expertise field matches with the faculty class's
+    # 3a. If so, add to high priority list of medium priority list, depending on field
+    # 3b. Also, add depending on relevant quarter, determined by listOfCatalogs[quarter][i]
+    # 4. If not, continue on to the next expertise if statement.
+    for i in range(0, len(listOfCatalogs[quarter])):
+        if "Teaching" in listOfCatalogs[quarter][i].getFieldList() and "Teaching" in fac.getExpertise():
+            if listOfCatalogs[quarter][i].getCourseNum() not in highPrio:
+                highPrio.append(listOfCatalogs[quarter][i].getCourseNum())
+            if listOfCatalogs[quarter][i].getCourseNum() in medPrio:
+                medPrio.remove(listOfCatalogs[quarter][i].getCourseNum())
+            if listOfCatalogs[quarter][i].getCourseNum() in lowPrio:
+                lowPrio.remove(listOfCatalogs[quarter][i].getCourseNum())
+        if "Writing" in listOfCatalogs[quarter][i].getFieldList() and "Writing" in fac.getExpertise():
+            if listOfCatalogs[quarter][i].getCourseNum() not in highPrio:
+                highPrio.append(listOfCatalogs[quarter][i].getCourseNum())
+            if listOfCatalogs[quarter][i].getCourseNum() in medPrio:
+                medPrio.remove(listOfCatalogs[quarter][i].getCourseNum())
+            if listOfCatalogs[quarter][i].getCourseNum() in lowPrio:
+                lowPrio.remove(listOfCatalogs[quarter][i].getCourseNum())
+        if "Graphics" in listOfCatalogs[quarter][i].getFieldList() and "Graphics" in fac.getExpertise():
+            if listOfCatalogs[quarter][i].getCourseNum() not in highPrio:
+                highPrio.append(listOfCatalogs[quarter][i].getCourseNum())
+            if listOfCatalogs[quarter][i].getCourseNum() in medPrio:
+                medPrio.remove(listOfCatalogs[quarter][i].getCourseNum())
+            if listOfCatalogs[quarter][i].getCourseNum() in lowPrio:
+                lowPrio.remove(listOfCatalogs[quarter][i].getCourseNum())
+        if "Cybersecurity" in listOfCatalogs[quarter][i].getFieldList() and "Cybersecurity" in fac.getExpertise():
+            if listOfCatalogs[quarter][i].getCourseNum() not in highPrio:
+                highPrio.append(listOfCatalogs[quarter][i].getCourseNum())
+            if listOfCatalogs[quarter][i].getCourseNum() in medPrio:
+                medPrio.remove(listOfCatalogs[quarter][i].getCourseNum())
+            if listOfCatalogs[quarter][i].getCourseNum() in lowPrio:
+                lowPrio.remove(listOfCatalogs[quarter][i].getCourseNum())
+        if "Networking" in listOfCatalogs[quarter][i].getFieldList() and "Networking" in fac.getExpertise():
+            if listOfCatalogs[quarter][i].getCourseNum() not in highPrio:
+                highPrio.append(listOfCatalogs[quarter][i].getCourseNum())
+            if listOfCatalogs[quarter][i].getCourseNum() in medPrio:
+                medPrio.remove(listOfCatalogs[quarter][i].getCourseNum())
+            if listOfCatalogs[quarter][i].getCourseNum() in lowPrio:
+                lowPrio.remove(listOfCatalogs[quarter][i].getCourseNum())
+        if "Operating Systems" in listOfCatalogs[quarter][i].getFieldList() and "Operating Systems" in fac.getExpertise():
+            if listOfCatalogs[quarter][i].getCourseNum() not in highPrio:
+                highPrio.append(listOfCatalogs[quarter][i].getCourseNum())
+            if listOfCatalogs[quarter][i].getCourseNum() in medPrio:
+                medPrio.remove(listOfCatalogs[quarter][i].getCourseNum())
+            if listOfCatalogs[quarter][i].getCourseNum() in lowPrio:
+                lowPrio.remove(listOfCatalogs[quarter][i].getCourseNum())
+        if "Databases" in listOfCatalogs[quarter][i].getFieldList() and "Databases" in fac.getExpertise():
+            if listOfCatalogs[quarter][i].getCourseNum() not in highPrio:
+                highPrio.append(listOfCatalogs[quarter][i].getCourseNum())
+            if listOfCatalogs[quarter][i].getCourseNum() in medPrio:
+                medPrio.remove(listOfCatalogs[quarter][i].getCourseNum())
+            if listOfCatalogs[quarter][i].getCourseNum() in lowPrio:
+                lowPrio.remove(listOfCatalogs[quarter][i].getCourseNum())
+        if "Hardware" in listOfCatalogs[quarter][i].getFieldList() and "Hardware" in fac.getExpertise():
+            if listOfCatalogs[quarter][i].getCourseNum() not in highPrio:
+                highPrio.append(listOfCatalogs[quarter][i].getCourseNum())
+            if listOfCatalogs[quarter][i].getCourseNum() in medPrio:
+                medPrio.remove(listOfCatalogs[quarter][i].getCourseNum())
+            if listOfCatalogs[quarter][i].getCourseNum() in lowPrio:
+                lowPrio.remove(listOfCatalogs[quarter][i].getCourseNum())
+        if "Programming" in listOfCatalogs[quarter][i].getFieldList() and "Programming" in fac.getExpertise():
+            if listOfCatalogs[quarter][i].getCourseNum() not in medPrio:
+                medPrio.append(listOfCatalogs[quarter][i].getCourseNum())
+            if listOfCatalogs[quarter][i].getCourseNum() in lowPrio:
+                lowPrio.remove(listOfCatalogs[quarter][i].getCourseNum())
+        if "Scientific Engineering" in listOfCatalogs[quarter][i].getFieldList() and "Scientific Engineering" in fac.getExpertise():
+            if listOfCatalogs[quarter][i].getCourseNum() not in medPrio:
+                medPrio.append(listOfCatalogs[quarter][i].getCourseNum())
+            if listOfCatalogs[quarter][i].getCourseNum() in lowPrio:
+                lowPrio.remove(listOfCatalogs[quarter][i].getCourseNum())
+        if "Scientific Computing" in listOfCatalogs[quarter][i].getFieldList() and "Scientific Computing" in fac.getExpertise():
+            if listOfCatalogs[quarter][i].getCourseNum() not in medPrio:
+                medPrio.append(listOfCatalogs[quarter][i].getCourseNum())
+            if listOfCatalogs[quarter][i].getCourseNum() in lowPrio:
+                lowPrio.remove(listOfCatalogs[quarter][i].getCourseNum())
+        if "Software Engineering" in listOfCatalogs[quarter][i].getFieldList() and "Software Engineering" in fac.getExpertise():
+            if listOfCatalogs[quarter][i].getCourseNum() not in medPrio:
+                medPrio.append(listOfCatalogs[quarter][i].getCourseNum())
+            if listOfCatalogs[quarter][i].getCourseNum() in lowPrio:
+                lowPrio.remove(listOfCatalogs[quarter][i].getCourseNum())
+
     return [lowPrio, medPrio, highPrio]
     
 def scheduleCourses(courseList, coursesToTeach):
