@@ -43,6 +43,9 @@ class Student(object):
             self.GPA = 4.0
         elif(self.GPA < 2.0):
             self.GPA = 2.0
+
+        #Use as mean for random GPA generation
+        self.aptitude = self.GPA
         # is a senior student
         if(self.isSenior == True):
             # initialize credit
