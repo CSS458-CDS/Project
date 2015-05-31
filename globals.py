@@ -32,8 +32,6 @@ ungraduated_with_low_GPA_quarter = []
 ADVISED_STUDENTS_PER_QUARTER = None
 # list of all faculty members
 allFaculty = []
-# list of all courses
-allCourses = []
 #Course catalog. List of all the courses offered in Autum.
 AUTCAT = []
 #Course catalog. List of all the courses offered in Winter.
