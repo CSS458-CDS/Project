@@ -27,7 +27,7 @@ class Student(object):
         Post : A student object is appropriately set
         Warning: Do not pass in senior = True and master = True
         Parameters:
-            courses: a list of courses that department could offer, in int representation
+            courses: a list of elective courses that department could offer, in int representation
             senior: a boolean
             master: a boolean
         Returns: None
@@ -152,6 +152,7 @@ class Student(object):
         # 1.course is not full
         # 2.no time conflict
         # 3.No retaking
+        # todo: 4.course cant be taughtBy = None
         if ( course.spots > 0 and self.timeConflict(course) == False and course.num not in self.finishedCourses):
             # student tries to register capstone
             if(self.ready_for_capstone() and course.num == 497):

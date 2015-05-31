@@ -17,8 +17,14 @@ MASTER_STUDENT_PERCENT = 0.1
 #Any classes that are not in this list are considered electives.
 CORE_CLASSES = {161, 162, 301, 342, 343, 350, 360, 370, 422, 430}
 
+# variable for stats
 # a list of graduated students
-graduated_students = []
+student_graduated_quarter = []
+student_population_quarter = []
+student_GPA_quarter = []
+ungraduated_without_capstone_quarter = []
+ungraduated_without_credit_quarter = []
+ungraduated_with_low_GPA_quarter = []
 # list of all faculty members
 allFaculty = []
 #Course catalog. List of all the courses offered in Autum.
