@@ -20,6 +20,7 @@ CORE_CLASSES = {161, 162, 301, 342, 343, 350, 360, 370, 422, 430}
 INITIAL_STUDENTS = 270
 #Juniors admitted into the CSS Program per quarter
 ADMITTED_JUNIORS_PER_QUARTER = 40
+NUM_GRADUATED = 0
 # variable for stats
 # a list of graduated students
 student_graduated_quarter = []

@@ -191,6 +191,8 @@ def endOfQuarter(students):
         else:
             i += 1
     g.student_graduated_quarter.append(graduated)
+    g.NUM_GRADUATED += len(graduated)
+
     # move junior student to senior (spent 4 quarter) if applicable
     i = 0
     while(i < len(students[0])):
