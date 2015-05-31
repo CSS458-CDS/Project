@@ -52,7 +52,7 @@ SUMSCHED = []
 ALL_ELECTIVES = []
 #Dictionary to get the field from a number
 FIELDS = {0:"Programming", 1:"Scientific Computing", 2:"Software Engineering",
-        3:"Operating Systems", 4:"Hardware", 5:"Cyber Security", 6:"Writing",
+        3:"Operating Systems", 4:"Hardware", 5:"Cybersecurity", 6:"Writing",
         7:"Databases", 8:"Networking", 9:"Teaching", 10:"Computer Engineering",
         11:"Graphics", 12:"Any"}
 def initialize_globals():
