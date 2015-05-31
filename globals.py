@@ -25,6 +25,8 @@ student_GPA_quarter = []
 ungraduated_without_capstone_quarter = []
 ungraduated_without_credit_quarter = []
 ungraduated_with_low_GPA_quarter = []
+#Total number of advised students
+ADVISED_STUDENTS_PER_QUARTER = None
 # list of all faculty members
 allFaculty = []
 #Course catalog. List of all the courses offered in Autum.
@@ -52,7 +54,7 @@ FIELDS = {0:"Programming", 1:"Scientific Computing", 2:"Software Engineering",
 def initialize_globals():
     import courseDriver as cd
     import facultyDriver as fd
-#    fd.buildFaculty()
+    fd.buildFaculty()
     cd.buildClasses()
     get_all_electives()
 
