@@ -17,7 +17,9 @@ MASTER_STUDENT_PERCENT = 0.1
 #Any classes that are not in this list are considered electives. Capstone is a special case
 CORE_CLASSES = {161, 162, 301, 342, 343, 350, 360, 370, 422, 430}
 #Number of students at time=0
-INITIAL_STUDENTS =
+INITIAL_STUDENTS = 270
+#Juniors admitted into the CSS Program per quarter
+ADMITTED_JUNIORS_PER_QUARTER = 40
 # variable for stats
 # a list of graduated students
 student_graduated_quarter = []
@@ -72,6 +74,3 @@ def get_all_electives():
     for i in range(len(SUMCAT)):
         if SUMCAT[i].num not in ALL_ELECTIVES:
             ALL_ELECTIVES.append(SUMCAT[i].num)
-
-
-
