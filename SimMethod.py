@@ -248,7 +248,8 @@ def displayData(students, professors, courses):
     g.ungraduated_with_low_GPA_quarter.append(ungraduated_with_low_GPA)
 
 # ====================================================main==============================================================
-def simulation(n):
+def simulate(years):
+    n = years
     # read classes from file
     g.initialize_globals()
     # capstone should not be part of the electives
