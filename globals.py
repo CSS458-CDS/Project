@@ -14,9 +14,10 @@ COURSE_TITLE_PRINT_LENGTH = 20
 # of all the graduated student, the percentage of students becoming master student
 MASTER_STUDENT_PERCENT = 0.1
 #This list contains the classes that are considered core to the major.
-#Any classes that are not in this list are considered electives.
+#Any classes that are not in this list are considered electives. Capstone is a special case
 CORE_CLASSES = {161, 162, 301, 342, 343, 350, 360, 370, 422, 430}
-
+#Number of students at time=0
+INITIAL_STUDENTS =
 # variable for stats
 # a list of graduated students
 student_graduated_quarter = []
