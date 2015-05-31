@@ -386,8 +386,10 @@ class Course:
     # Return course number
     def getCourseNum(self):
         return self.num
-
-
+    
+    # Return field
+    def getFieldList(self):
+        return self.field
 
 
 
