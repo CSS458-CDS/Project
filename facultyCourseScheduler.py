@@ -154,15 +154,31 @@ def scheduleCourses(curFac, courseList, coursesToTeach, quarter):
     for i in range (0, len(coursesToTeach)):
         for j in range(0, len(courseList[2])): # High priority search
             if coursesToTeach[i].getCourseNum() == courseList[2][j] and coursesToTeach[i].getCourseNum() != None \
-            and courseList[2][j] != None:
+            and courseList[2][j] != None and coursesToTeach[i].getTaughtBy == None:
                 coursesToTeach[i].setTaughtBy(curFac)
+                if quarter == 0:
+                    g.AUTCAT[i].setTaughtBy(curFac)
+                elif quarter == 1:
+                    g.WINCAT[i].setTaughtBy(curFac)
+                elif quarter == 2:
+                    g.SPRCAT[i].setTaughtBy(curFac)
+                else:
+                    g.SUMCAT[i].setTaughtBy(curFac)
                 return coursesToTeach[i].getCourseNum()
                 
     for i in range (0, len(coursesToTeach)):
         for j in range(0, len(courseList[1])): # Medium priority search
             if coursesToTeach[i].getCourseNum() == courseList[1][j] and coursesToTeach[i].getCourseNum() != None \
-                and courseList[1][j] != None:
+                and courseList[1][j] != None and coursesToTeach[i].getTaughtBy == None:
                 coursesToTeach[i].setTaughtBy(curFac)
+                if quarter == 0:
+                    g.AUTCAT[i].setTaughtBy(curFac)
+                elif quarter == 1:
+                    g.WINCAT[i].setTaughtBy(curFac)
+                elif quarter == 2:
+                    g.SPRCAT[i].setTaughtBy(curFac)
+                else:
+                    g.SUMCAT[i].setTaughtBy(curFac)
                 return coursesToTeach[i].getCourseNum()
                 
     return 000
