@@ -18,6 +18,7 @@ class Student(object):
             finishedCourses: a list that contains all the course number
             GPA: a double that represent the cumulative GPA
             currentCourses: a list of course class that the student is taking this quarter
+            aptitude: affects the grade the students receive from courses
     """
     # ==================================================================================================================
     def __init__(self, courses, senior = False, master = False):
@@ -43,7 +44,6 @@ class Student(object):
             self.GPA = 4.0
         elif(self.GPA < 2.0):
             self.GPA = 2.0
-
         #Use as mean for random GPA generation
         self.aptitude = self.GPA
         # is a senior student

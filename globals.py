@@ -34,6 +34,7 @@ student_GPA_quarter = []
 ungraduated_without_capstone_quarter = []
 ungraduated_without_credit_quarter = []
 ungraduated_with_low_GPA_quarter = []
+percentage_of_unassigned_courses = []
 #Total number of advised students
 ADVISED_STUDENTS_PER_QUARTER = None
 # list of all faculty members

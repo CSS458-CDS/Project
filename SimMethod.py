@@ -17,7 +17,6 @@ MEAN_GPA = 3.2
 STD = 0.5
 # ======================================================================================================================
 
-
 # ======================================================================================================================
 def simOneQuarter(students, professors, courses):
     """
@@ -33,7 +32,6 @@ def simOneQuarter(students, professors, courses):
                 courses: a list of course objects
     Returns: None
     """
-    #scheduleClass(courses, professors)
     registration(students, courses)
     endOfQuarter(students)
     displayData(students, professors, courses)
@@ -41,17 +39,6 @@ def simOneQuarter(students, professors, courses):
     numberOfNew = g.ADMITTED_JUNIORS_PER_QUARTER + (N.random.randint(0,20) - 10)
     for i in range(0, numberOfNew):
         students[0].append(Student(g.ALL_ELECTIVES))
-# ======================================================================================================================
-def scheduleClass(course, professors):
-    """
-    Description: assign professors with classes
-    Pre : Professors and courses have been read
-    Post : professor and courses are set
-    Parameters:
-                professors: a list of faculty objects
-                courses: a list of course objects
-    Returns: None
-    """
 # ======================================================================================================================
 def registration(students, courses):
     """
@@ -160,8 +147,11 @@ def endOfQuarter(students):
         for j in range(0, len(students[i])):
             # for every class they take
             for k in range(0, len(students[i][j].currentCourses)):
+                # course difficulty factor
+                difficulty = students[i][j].currentCourses[k].difficulty / ( 2 * 10)
                 # receive a GPA for this course
-                GPA = N.random.normal(MEAN_GPA,STD)
+                GPA = N.random.normal(students[i][j].aptitude - difficulty , STD + difficulty)
+                # safe boundary
                 if(GPA > 4.0):
                     GPA = 4.0
                 elif(GPA < 0):
@@ -172,7 +162,11 @@ def endOfQuarter(students):
                 # pass the class only when their GPA >= 2.0
                 if(GPA >= 2.0):
                     students[i][j].finishedCourses.append(students[i][j].currentCourses[k].num)
-                    students[i][j].credit += 5
+                    # students receive 10 credit from capstone
+                    if(students[i][j].currentCourses[k].num ==  497):
+                        students[i][j].credit += 10
+                    else:
+                        students[i][j].credit += 5
             # clear their current courses
             students[i][j].currentCourses = []
             # one quarter pasted
@@ -246,7 +240,13 @@ def displayData(students, professors, courses):
             ungraduated_with_low_GPA += 1
     print('Number of ungraduated students because of insufficient credit :', ungraduated_with_low_GPA)
     g.ungraduated_with_low_GPA_quarter.append(ungraduated_with_low_GPA)
-
+    # calculate unassigned courses
+    unassigned = 0
+    for i in range(0, len(courses)):
+        if(courses[i].taughtBy == None):
+            unassigned+=1
+    g.percentage_of_unassigned_courses.append(unassigned / len(courses))
+    print('Percentage of Unassigned Courses :', g.percentage_of_unassigned_courses[-1])
 # ====================================================main==============================================================
 def simulate(years):
     n = years
@@ -290,51 +290,65 @@ def simulate(years):
         print(' ')
         # display graph for the past academic year
         # x coordinate value
-        x_value = list(range(1, (i+1) * 4 + 1))
+        x_value = range(1, ((i + 1) * 4) + 1)
         graduateList = []
         for j in range(len(g.student_graduated_quarter)):
             graduateList.append(len(g.student_graduated_quarter[j]))
-        plt.plot(x_value,graduateList,'-o')
+
+        plt.figure(1,figsize=(5, 3), dpi=65,)
+
+        plt.subplot(241)
+
+        plt.plot(x_value,graduateList,'--o')
         # print graduated students
-        plt.title('Number of Graduated Students for Year: '+ str(i + 1))
-        plt.axis([1, x_value[-1],-10, 200])
+        plt.title('Number of Graduated Students Per Quarter for Year: '+ str(i + 1))
+        plt.axis([1, x_value[-1],-10, 100])
         plt.xlabel('Quarters(starting from Fall, year1. Next integer maps to next quarter)')
         plt.ylabel('Number of Graduated Students')
-        plt.show()
         # print population
-        plt.plot(x_value,g.student_population_quarter,'-o')
+        plt.subplot(242)
+        plt.plot(x_value,g.student_population_quarter,'--o')
         plt.title(' Students Population for Year: '+ str(i + 1))
-        plt.axis([1, x_value[-1],0, 500])
+        plt.axis([1, x_value[-1],0, 400])
         plt.xlabel('Quarters(starting from Fall, year1. Next integer maps to next quarter)')
         plt.ylabel('Population')
-        plt.show()
+
         # display GPA average
-        plt.plot(x_value,g.student_GPA_quarter,'-o')
+        plt.subplot(243)
+        plt.plot(x_value,g.student_GPA_quarter,'--o')
         plt.title(' Students GPA Average for Year: '+ str(i + 1))
-        plt.axis([1, x_value[-1],0, 4])
+        plt.axis([1, x_value[-1],1, 4])
         plt.xlabel('Quarters(starting from Fall, year1. Next integer maps to next quarter)')
         plt.ylabel('GPA')
-        plt.show()
+
         # display ungraduated data
-        plt.plot(x_value,g.ungraduated_without_capstone_quarter,'-o')
-        plt.title(' Ungraduated Students That are Unable to Register Capstone for Year: '+ str(i + 1))
-        plt.axis([1, x_value[-1],0, 500])
+        plt.subplot(244)
+        plt.plot(x_value,g.ungraduated_without_capstone_quarter,'--o')
+        plt.title(' Ungraduated Seniors That are Unable to Register Capstone for Year: '+ str(i + 1))
+        plt.axis([1, x_value[-1],0, 20])
         plt.xlabel('Quarters(starting from Fall, year1. Next integer maps to next quarter)')
         plt.ylabel('Population')
-        plt.show()
 
-        plt.plot(x_value,g.ungraduated_without_credit_quarter,'-o')
+        plt.subplot(245)
+        plt.plot(x_value,g.ungraduated_without_credit_quarter,'--o')
         plt.title(' Ungraduated Seniors with Insufficient Credit for Year: '+ str(i + 1))
-        plt.axis([1, x_value[-1],0, 500])
+        plt.axis([1, x_value[-1],0, 150])
         plt.xlabel('Quarters(starting from Fall, year1. Next integer maps to next quarter)')
         plt.ylabel('Population')
-        plt.show()
 
-        plt.plot(x_value,g.ungraduated_with_low_GPA_quarter,'-o')
-        plt.title(' Ungraduated Students with Low GPA for Year: '+ str(i + 1))
-        plt.axis([1, x_value[-1],0, 500])
+        plt.subplot(246)
+        plt.plot(x_value,g.ungraduated_with_low_GPA_quarter,'--o')
+        plt.title(' Ungraduated Seniors with Low GPA for Year: '+ str(i + 1))
+        plt.axis([1, x_value[-1],0, 20])
         plt.xlabel('Quarters(starting from Fall, year1. Next integer maps to next quarter)')
         plt.ylabel('Population')
+
+        plt.subplot(247)
+        plt.plot(x_value,g.percentage_of_unassigned_courses,'--o')
+        plt.title(' Percentage of Unassigned Courses for Year: '+ str(i + 1))
+        plt.axis([1, x_value[-1],0, 1.0])
+        plt.xlabel('Quarters(starting from Fall, year1. Next integer maps to next quarter)')
+        plt.ylabel('Percentage')
         plt.show()
 
         #reset course schedule
