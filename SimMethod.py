@@ -54,8 +54,11 @@ def registration(students, courses):
                 courses: a list of course objects
     Returns: None
     """
+    # Shuffle all students
+    r.shuffle (students[0])
+    r.shuffle (students[1])
+    r.shuffle (students[2])
     # register junior
-    # print out prompt line
     for i in range(0,len(students[0])):
         # random number of class
         numberOfClass = N.random.randint(1,MAX_CLASS_PER_QUARTER + 1)
@@ -272,7 +275,7 @@ def simulate(years):
     for i in range(n):
         # read classes from file
         g.initialize_globals()
-        # sch
+        # schedule class for whole year
         #facultyCourseScheduler.main()
         # capstone should not be part of the electives
         g.ALL_ELECTIVES.remove(497)
@@ -298,7 +301,7 @@ def simulate(years):
         for j in range(len(g.student_graduated_quarter)):
             graduateList.append(len(g.student_graduated_quarter[j]))
 
-        plt.figure(1,figsize=(6, 3), dpi=70,)
+        plt.figure(1,figsize=(27, 15), dpi=70,)
 
         plt.subplot(241)
 
@@ -352,6 +355,7 @@ def simulate(years):
         plt.axis([1, x_value[-1],0, 1.0])
         plt.xlabel('Quarters')
         plt.ylabel('Percentage')
+        plt.savefig('result_year_'+ str(i+1)+'.png',dpi = 80)
         plt.show()
         #reset course schedule
         AUTCAT = []
