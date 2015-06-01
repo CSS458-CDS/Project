@@ -156,7 +156,7 @@ class Student(object):
         # 2.no time conflict
         # 3.No retaking
         # todo: 4.course cant be taughtBy = None
-        if ( course.spots > 0 and self.timeConflict(course) == False and course.num not in self.finishedCourses):
+        if ( course.spots > 0 and self.timeConflict(course) == False and course.num not in self.finishedCourses and course.taughtBy != None):
             # student tries to register capstone
             if(self.ready_for_capstone() and course.num == 497):
                 course.spots -= 1

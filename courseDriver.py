@@ -91,6 +91,7 @@ def make_one_course(ws, startColumn, startRow):
     #Handle capstone
     if num == 497:
         result = c.Course(courseNum=num, time="-1", day="-1", cap=g.ADVISED_STUDENTS_PER_QUARTER)
+        result.taughtBy = -1
         result.dept = "CSS"
         return result
 
