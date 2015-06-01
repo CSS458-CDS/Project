@@ -144,8 +144,9 @@ def scheduleCourses(curFac, courseList, coursesToTeach, quarter):
     for i in range (0, len(coursesToTeach)):
         for j in range(0, len(courseList[2])): # High priority search
             if coursesToTeach[i].getCourseNum() == courseList[2][j] and coursesToTeach[i].getCourseNum() != None \
-            and courseList[2][j] != None and coursesToTeach[i].getTaughtBy == None and curFac.setCurrentlyTeaching() \
+            and courseList[2][j] != None and coursesToTeach[i].getTaughtBy() == None and curFac.getCurrentlyTeaching() \
                 < curFac.getNumClasses():
+                    
                 coursesToTeach[i].setTaughtBy(curFac)
                 if quarter == 0:
                     g.AUTCAT[i].setTaughtBy(curFac)
@@ -161,8 +162,9 @@ def scheduleCourses(curFac, courseList, coursesToTeach, quarter):
     for i in range (0, len(coursesToTeach)):
         for j in range(0, len(courseList[1])): # Medium priority search
             if coursesToTeach[i].getCourseNum() == courseList[1][j] and coursesToTeach[i].getCourseNum() != None \
-                and courseList[1][j] != None and coursesToTeach[i].getTaughtBy == None and curFac.setCurrentlyTeaching() \
+                and courseList[1][j] != None and coursesToTeach[i].getTaughtBy() == None and curFac.getCurrentlyTeaching() \
                 < curFac.getNumClasses():
+                    
                 coursesToTeach[i].setTaughtBy(curFac)
                 if quarter == 0:
                     g.AUTCAT[i].setTaughtBy(curFac)
