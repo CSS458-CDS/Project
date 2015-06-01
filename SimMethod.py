@@ -258,7 +258,8 @@ def simulate(years):
     # read classes from file
     g.initialize_globals()
     # capstone should not be part of the electives
-    g.ALL_ELECTIVES.remove(497)
+    if 497 in g.ALL_ELECTIVES:
+        g.ALL_ELECTIVES.remove(497)
     # schedule class for whole year
     facultyCourseScheduler.main()
     #initialize students
@@ -373,5 +374,6 @@ def simulate(years):
         # schedule class for whole year
         facultyCourseScheduler.main()
         # capstone should not be part of the electives
-        g.ALL_ELECTIVES.remove(497)
+        if 497 in g.ALL_ELECTIVES:
+            g.ALL_ELECTIVES.remove(497)
 
