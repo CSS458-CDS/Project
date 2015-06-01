@@ -395,5 +395,8 @@ class Course:
     # Set the faculty member who teaches the course
     def setTaughtBy(self, newFac):
         self.taughtBy = newFac
+        
+    def getTaughtBy(self):
+        return self.taughtBy
 
 
