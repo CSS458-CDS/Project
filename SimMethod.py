@@ -258,9 +258,9 @@ def simulate(years):
     g.initialize_globals()
     # capstone should not be part of the electives
     g.ALL_ELECTIVES.remove(497)
-    # 0 - 3 corresponds to fall, winter, spring summer
-    courses = [g.AUTCAT,g.WINCAT,g.SPRCAT,g.SUMCAT]
-    #initialize students,professors
+    # schedule class for whole year
+    facultyCourseScheduler.main()
+    #initialize students
     junior=[]
     for i in range(0,NUM_OF_JUNIOR):
         junior.append(Student(g.ALL_ELECTIVES))
@@ -273,26 +273,18 @@ def simulate(years):
     students  = [junior, senior, master]
     professors = []
     for i in range(n):
-        # read classes from file
-        g.initialize_globals()
-        # schedule class for whole year
-        facultyCourseScheduler.main()
-        # capstone should not be part of the electives
-        g.ALL_ELECTIVES.remove(497)
-        # 0 - 3 corresponds to fall, winter, spring summer
-        courses = [g.AUTCAT,g.WINCAT,g.SPRCAT,g.SUMCAT]
         print('-------------------------------Year ', i + 1, '-------------------------------')
         print('Fall:')
-        simOneQuarter(students, professors, courses[0])
+        simOneQuarter(students, professors,g.AUTCAT)
         print(' ')
         print('Winter:')
-        simOneQuarter(students, professors, courses[1])
+        simOneQuarter(students, professors, g.WINCAT)
         print(' ')
         print('Spring:')
-        simOneQuarter(students, professors, courses[2])
+        simOneQuarter(students, professors, g.SPRCAT)
         print(' ')
         print('Summer:')
-        simOneQuarter(students, professors, courses[3])
+        simOneQuarter(students, professors, g.SUMCAT)
         print(' ')
         # display graph for the past academic year
         # x coordinate value
@@ -365,3 +357,12 @@ def simulate(years):
         SPRCAT = []
         #Course catalog. List of all the courses offered in Summer.
         SUMCAT = []
+        allFaculty = []
+        ALL_ELECTIVES = []
+        # read classes from file
+        g.initialize_globals()
+        # schedule class for whole year
+        facultyCourseScheduler.main()
+        # capstone should not be part of the electives
+        g.ALL_ELECTIVES.remove(497)
+
