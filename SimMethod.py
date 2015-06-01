@@ -190,7 +190,7 @@ def endOfQuarter(students):
             i += 1
     g.student_graduated_quarter.append(graduated)
     g.NUM_GRADUATED += len(graduated)
-
+    g.CUMULATED_GRADUATED.append(g.NUM_GRADUATED)
     # move junior student to senior (spent 4 quarter) if applicable
     i = 0
     while(i < len(students[0])):
@@ -210,6 +210,7 @@ def displayData(students, professors, courses):
     Returns: None
     """
     print('Number of graduated students after this quarter:', len(g.student_graduated_quarter[-1]))
+    print('Number of graduated students in total:',g.NUM_GRADUATED)
     print('Current junior students:',len(students[0]))
     print('Current senior students:',len(students[1]))
     print('Current master students:',len(students[2]))
@@ -293,55 +294,63 @@ def simulate(years):
         for j in range(len(g.student_graduated_quarter)):
             graduateList.append(len(g.student_graduated_quarter[j]))
 
-        plt.figure(1,figsize=(27, 15), dpi=70,)
+        plt.figure(1,figsize=(20, 12), dpi=70,)
 
         plt.subplot(241)
 
         plt.plot(x_value,graduateList,'--o')
         # print graduated students
-        plt.title('Graduated Students Per Quarter for Year: '+ str(i + 1))
+        plt.title('Graduated Per Quarter.Year: '+ str(i + 1))
         plt.axis([1, x_value[-1],-10, 100])
         plt.xlabel('Quarters')
         plt.ylabel('Number of Graduated Students')
-        # print population
+
         plt.subplot(242)
+        plt.plot(x_value,g.CUMULATED_GRADUATED,'--o')
+        plt.title('Graduated in total for Year: '+ str(i + 1))
+        plt.axis([1, x_value[-1],-10, 100])
+        plt.xlabel('Quarters')
+        plt.ylabel('Total Graduated Students')
+
+        # print population
+        plt.subplot(243)
         plt.plot(x_value,g.student_population_quarter,'--o')
-        plt.title(' Students Population for Year: '+ str(i + 1))
+        plt.title('Students Population. Year: '+ str(i + 1))
         plt.axis([1, x_value[-1],0, 400])
         plt.xlabel('Quarters')
         plt.ylabel('Population')
 
         # display GPA average
-        plt.subplot(243)
+        plt.subplot(244)
         plt.plot(x_value,g.student_GPA_quarter,'--o')
-        plt.title(' Students GPA Average for Year: '+ str(i + 1))
+        plt.title(' Students GPA Average. Year: '+ str(i + 1))
         plt.axis([1, x_value[-1],1, 4])
         plt.xlabel('Quarters')
         plt.ylabel('GPA')
 
         # display ungraduated data
-        plt.subplot(244)
+        plt.subplot(245)
         plt.plot(x_value,g.ungraduated_without_capstone_quarter,'--o')
-        plt.title(' Ungraduated Seniors Waiting for Capstone for Year: '+ str(i + 1))
+        plt.title('Seniors Waiting for Capstone. Year: '+ str(i + 1))
         plt.axis([1, x_value[-1],0, 50])
         plt.xlabel('Quarters')
         plt.ylabel('Population')
 
-        plt.subplot(245)
+        plt.subplot(246)
         plt.plot(x_value,g.ungraduated_without_credit_quarter,'--o')
-        plt.title(' Ungraduated Seniors with Insufficient Credit for Year: '+ str(i + 1))
+        plt.title('Seniors with Insufficient Credit. Year: '+ str(i + 1))
         plt.axis([1, x_value[-1],0, 150])
         plt.xlabel('Quarters')
         plt.ylabel('Population')
 
-        plt.subplot(246)
+        plt.subplot(247)
         plt.plot(x_value,g.ungraduated_with_low_GPA_quarter,'--o')
-        plt.title(' Ungraduated Seniors with Low GPA for Year: '+ str(i + 1))
+        plt.title('Seniors with Low GPA. Year: '+ str(i + 1))
         plt.axis([1, x_value[-1],0, 20])
         plt.xlabel('Quarters')
         plt.ylabel('Population')
 
-        plt.subplot(247)
+        plt.subplot(248)
         plt.plot(x_value,g.percentage_of_unassigned_courses,'--o')
         plt.title(' Percentage of Unassigned Courses for Year: '+ str(i + 1))
         plt.axis([1, x_value[-1],0, 1.0])
