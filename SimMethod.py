@@ -276,7 +276,7 @@ def simulate(years):
         # read classes from file
         g.initialize_globals()
         # schedule class for whole year
-        #facultyCourseScheduler.main()
+        facultyCourseScheduler.main()
         # capstone should not be part of the electives
         g.ALL_ELECTIVES.remove(497)
         # 0 - 3 corresponds to fall, winter, spring summer

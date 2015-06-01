@@ -51,7 +51,6 @@ def buildSchedule(listOfFaculty, coursesToTeach, quarter):
                 # Was a faculty assigned to a course? If so, increment currentlyTeaching for faculty
                 if newCourse != 000:
                     listOfFaculty[i].setCurrentlyTeaching(listOfFaculty[i].getCurrentlyTeaching() + 1)
-                    
                 steps += 1    
         
 
