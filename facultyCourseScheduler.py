@@ -52,8 +52,8 @@ def buildSchedule(listOfFaculty, coursesToTeach, quarter):
                 if newCourse != 000:
                     listOfFaculty[i].setCurrentlyTeaching(listOfFaculty[i].getCurrentlyTeaching() + 1)
                     
-        if newCourse != 000:
-            steps += 1
+                steps += 1    
+        
 
 def prioritizeCourses(fac, quarter):
     highPrio = [] # Designates courses that the faculty member is exceptional in
