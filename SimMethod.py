@@ -228,21 +228,21 @@ def displayData(students, professors, courses):
     for i in range(0, len(students[1])):
         if(497 not in students[1][i].finishedCourses and students[1][i].GPA >= 2.0 and students[1][i].credit >= 180):
             ungraduated_without_capstone += 1
-    print('Number of ungraduated students because of a lack of no Capstone:', ungraduated_without_capstone)
+    print('Number of ungraduated Seniors waiting for Capstone:', ungraduated_without_capstone)
     g.ungraduated_without_capstone_quarter.append(ungraduated_without_capstone)
     # number of senior unable to graduate because of not enough credit
     ungraduated_without_credit = 0
     for i in range(0, len(students[1])):
         if(497 in students[1][i].finishedCourses and students[1][i].GPA >= 2.0 and students[1][i].credit < 180):
             ungraduated_without_credit += 1
-    print('Number of ungraduated students because of insufficient credit :', ungraduated_without_credit)
+    print('Number of ungraduated Seniors because of insufficient credit :', ungraduated_without_credit)
     g.ungraduated_without_credit_quarter.append(ungraduated_without_credit)
     # number of senior unable to graduate because of low GPA
     ungraduated_with_low_GPA = 0
     for i in range(0, len(students[1])):
         if(497 in students[1][i].finishedCourses and students[1][i].GPA < 2.0 and students[1][i].credit >= 180):
             ungraduated_with_low_GPA += 1
-    print('Number of ungraduated students because of insufficient credit :', ungraduated_with_low_GPA)
+    print('Number of ungraduated Seniors because of insufficient credit :', ungraduated_with_low_GPA)
     g.ungraduated_with_low_GPA_quarter.append(ungraduated_with_low_GPA)
     # calculate unassigned courses
     unassigned = 0
@@ -331,7 +331,7 @@ def simulate(years):
         plt.subplot(244)
         plt.plot(x_value,g.ungraduated_without_capstone_quarter,'--o')
         plt.title(' Ungraduated Seniors Waiting for Capstone for Year: '+ str(i + 1))
-        plt.axis([1, x_value[-1],0, 20])
+        plt.axis([1, x_value[-1],0, 50])
         plt.xlabel('Quarters')
         plt.ylabel('Population')
 
