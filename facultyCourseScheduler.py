@@ -37,7 +37,7 @@ def main():
 # quarter = 0,1,2,3 depending on what quarter is currently being worked with.
 def buildSchedule(listOfFaculty, coursesToTeach, quarter):
     for i in range(0, len(listOfFaculty)):
-        listOfFaculty.setCurrentlyTeaching(0)
+        listOfFaculty[i].setCurrentlyTeaching(0)
     
     steps = 0
     
