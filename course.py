@@ -158,6 +158,7 @@ class Course:
 
     def getTitle(self):
         self.num = int(self.num)
+        self.difficulty = int(self.num / 100)
         if self.dept == "CSS":
             if self.num == 107:
                 self.title = "Introduction to Programming through Animated Storytelling"
