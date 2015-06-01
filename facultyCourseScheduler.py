@@ -47,23 +47,23 @@ def buildSchedule(listOfFaculty, coursesToTeach, quarter):
             if listOfFaculty[i].getCurrentlyTeaching() < listOfFaculty[i].getNumClasses():
                 courseList = prioritizeCourses(listOfFaculty[i], quarter)
                 newCourse = scheduleCourses(listOfFaculty[i], courseList, coursesToTeach, quarter)
-                
+
                 # Was a faculty assigned to a course? If so, increment currentlyTeaching for faculty
                 if newCourse != 000:
                     listOfFaculty[i].setCurrentlyTeaching(listOfFaculty[i].getCurrentlyTeaching() + 1)
-                steps += 1    
-        
+                steps += 1
+
 
 def prioritizeCourses(fac, quarter):
     highPrio = [] # Designates courses that the faculty member is exceptional in
     medPrio = [] # Designates courses that the faculty member can teach
     lowPrio = [] # Designates courses that the faculty member should not teach or
                  # are outside of their range of expertise
-    
+
     populateLowPrio(lowPrio)
-    
+
     listOfCatalogs = [g.AUTCAT, g.WINCAT, g.SPRCAT, g.SUMCAT]
-    
+
     # 1. Loop through every course in that quarter's catalog
     # 2. Check if that course's expertise field matches with the faculty class's
     # 3a. If so, add to high priority list of medium priority list, depending on field
@@ -164,7 +164,7 @@ def scheduleCourses(curFac, courseList, coursesToTeach, quarter):
                 else:
                     g.SUMCAT[i].setTaughtBy(curFac)
                 return coursesToTeach[i].getCourseNum()
-                
+
     for i in range (0, len(coursesToTeach)):
         for j in range(0, len(courseList[1])): # Medium priority search
             if coursesToTeach[i].getCourseNum() == courseList[1][j] and coursesToTeach[i].getCourseNum() != None \
