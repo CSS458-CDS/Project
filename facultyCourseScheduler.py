@@ -42,17 +42,12 @@ def buildSchedule(listOfFaculty, coursesToTeach, quarter):
     steps = 0
     
     # Assign high/med/low priority courses for each faculty member
-    while steps < len(coursesToTeach):
+    # Goes over it 3 times for thoroughness
+    for i in range(0, 3):
         for i in range(0, len(listOfFaculty)):
             if listOfFaculty[i].getCurrentlyTeaching() < listOfFaculty[i].getNumClasses():
                 courseList = prioritizeCourses(listOfFaculty[i], quarter)
                 newCourse = scheduleCourses(listOfFaculty[i], courseList, coursesToTeach, quarter)
-                
-                # Was a faculty assigned to a course? If so, increment currentlyTeaching for faculty
-                if newCourse != 000:
-                    listOfFaculty[i].setCurrentlyTeaching(listOfFaculty[i].getCurrentlyTeaching() + 1)
-                    
-                steps += 1    
         
 
 def prioritizeCourses(fac, quarter):
@@ -154,7 +149,8 @@ def scheduleCourses(curFac, courseList, coursesToTeach, quarter):
     for i in range (0, len(coursesToTeach)):
         for j in range(0, len(courseList[2])): # High priority search
             if coursesToTeach[i].getCourseNum() == courseList[2][j] and coursesToTeach[i].getCourseNum() != None \
-            and courseList[2][j] != None and coursesToTeach[i].getTaughtBy == None:
+            and courseList[2][j] != None and coursesToTeach[i].getTaughtBy == None and listOfFaculty[i].getCurrentlyTeaching() \
+            < listOfFaculty[i].getNumClasses():
                 coursesToTeach[i].setTaughtBy(curFac)
                 if quarter == 0:
                     g.AUTCAT[i].setTaughtBy(curFac)
@@ -164,12 +160,14 @@ def scheduleCourses(curFac, courseList, coursesToTeach, quarter):
                     g.SPRCAT[i].setTaughtBy(curFac)
                 else:
                     g.SUMCAT[i].setTaughtBy(curFac)
-                return coursesToTeach[i].getCourseNum()
+                    
+                listOfFaculty[i].setCurrentlyTeaching(listOfFaculty[i].getCurrentlyTeaching() + 1)
                 
     for i in range (0, len(coursesToTeach)):
         for j in range(0, len(courseList[1])): # Medium priority search
             if coursesToTeach[i].getCourseNum() == courseList[1][j] and coursesToTeach[i].getCourseNum() != None \
-                and courseList[1][j] != None and coursesToTeach[i].getTaughtBy == None:
+                and courseList[1][j] != None and coursesToTeach[i].getTaughtBy == None and listOfFaculty[i].getCurrentlyTeaching() \
+                < listOfFaculty[i].getNumClasses():
                 coursesToTeach[i].setTaughtBy(curFac)
                 if quarter == 0:
                     g.AUTCAT[i].setTaughtBy(curFac)
@@ -179,7 +177,8 @@ def scheduleCourses(curFac, courseList, coursesToTeach, quarter):
                     g.SPRCAT[i].setTaughtBy(curFac)
                 else:
                     g.SUMCAT[i].setTaughtBy(curFac)
-                return coursesToTeach[i].getCourseNum()
+                
+                listOfFaculty[i].setCurrentlyTeaching(listOfFaculty[i].getCurrentlyTeaching() + 1)    
                 
     return 000
 
