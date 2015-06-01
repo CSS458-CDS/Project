@@ -27,12 +27,10 @@ This course is still WIP. The following areas are still unfinished at the time o
 # facultyCourseScheduler.py alone.
 def main():
     
-    listOfFaculty = g.allFaculty
-    
-    buildSchedule(listOfFaculty, g.AUTCAT, 0)
-    buildSchedule(listOfFaculty, g.WINCAT, 1)
-    buildSchedule(listOfFaculty, g.SPRCAT, 2)
-    buildSchedule(listOfFaculty, g.SUMCAT, 3)
+    buildSchedule(g.allFaculty, g.AUTCAT, 0)
+    buildSchedule(g.allFaculty, g.WINCAT, 1)
+    buildSchedule(g.allFaculty, g.SPRCAT, 2)
+    buildSchedule(g.allFaculty, g.SUMCAT, 3)
 
 # quarter = 0,1,2,3 depending on what quarter is currently being worked with.
 def buildSchedule(listOfFaculty, coursesToTeach, quarter):
@@ -148,7 +146,7 @@ def prioritizeCourses(fac, quarter):
                 lowPrio.remove(listOfCatalogs[quarter][i].getCourseNum())
 
     return [lowPrio, medPrio, highPrio]
-    
+
 def scheduleCourses(curFac, courseList, coursesToTeach, quarter):
     for i in range (0, len(coursesToTeach)):
         for j in range(0, len(courseList[2])): # High priority search
